@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "target": "ES2020",
+      "module": "commonjs",
+      "outDir": "../js",
+      "esModuleInterop": true,
+      "sourceMap": false,
+      "removeComments": false
+    },
+    "include": [
+      "./../ts/**/*.ts"
+    ]
+  }

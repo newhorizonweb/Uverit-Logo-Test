@@ -1,0 +1,839 @@
+/* 
+    Website created by Uverit
+    Do not copy or distribute
+    https://www.fiverr.com/new_horizon_web
+*/
+
+    /* Media breakpoints */
+    /* Width: 1440, 1200, 1024, 768, 540, 440, 320 */
+
+
+    
+    /* Colors */
+
+:root{
+    
+        /* Uverit Color Palette */
+    
+    --color1:#07ABDB;       /* Main Color */
+    
+    --color1a:#62D2FD;      /* Secondary Color, Light-Mode */
+    --color1b:#2086B6;      /* Secondary Color, Dark-Mode */
+    
+    --color2:#CC1EEC;       /* Accent Color */
+    
+    --color2a:#BF4FFF;      /* Secondary Accent, Light-Mode */
+    --color2b:#A727DA;      /* Secondary Accent, Dark-Mode */
+    
+    --color3a:#F8FAFE;      /* Background-color, Light-Mode */
+    --color3b:#111316;      /* Background-color, Dark-Mode */
+    
+        /* Additional colors */
+    
+    --wrapperColor1:#D4DFE5;        /* Main content box shadow color 1 */
+    
+    --shade1:#FFFFFF;                   /* Shade 1 */
+    --shade2:#F9F9F9;                   /* Shade 2 */
+    --shade3:rgb(248,250,254,0.92);     /* Shade 3 */
+    --shade4:#ECECEC;                   /* Shade 4 */
+    --shade5:#DDE6EA;                   /* Shade 5 */
+    --shade6:#D6D6D6;                   /* Shade 6 */
+
+    
+    --txt1:#222;                    /* Text color 1 */    
+    --txt2:#FAFAFA;                 /* Text color 2 */
+    --txt-faded:#444;               /* Text faded color 1 */
+    --txt-faded2:#6A6A6A;           /* Text faded color 2 */
+    --txt-faded3:#919191;           /* Text faded color 3 */
+}
+
+        /* Dark-mode - class-changes */
+
+.dark-mode{
+    
+            /* Uverit Color Palette */
+    
+    --color1a:#2086B6;      /* Secondary Color, Dark-Mode */
+    --color1b:#62D2FD;      /* Secondary Color, Light-Mode */
+
+    --color2a:#A727DA;      /* Secondary Accent, Dark-Mode */
+    --color2b:#BF4FFF;      /* Secondary Accent, Light-Mode */
+    
+    --color3a:#111316;      /* Background-color, Dark-Mode */
+    --color3b:#F8FAFE;      /* Background-color, Light-Mode */
+    
+            /* Additional colors */
+    
+    --wrapperColor1:#23292A;
+    
+    --shade1:#212527;               /* Shade 1 */
+    --shade2:#1B1E1F;               /* Shade 2 */
+    --shade3:rgb(17,19,22,0.95);    /* Shade 3 */
+    --shade4:#151718;               /* Shade 4 */
+    --shade5:#343738;               /* Shade 5 */
+    --shade6:#3B3B42;               /* Shade 6 */
+    
+
+    --txt1:#FAFAFA;                 /* Text color 1 */    
+    --txt2:#222;                    /* Text color 2 */
+    --txt-faded:#EEE;            /* Text faded color 1 */
+    --txt-faded2:#CFCFCF;           /* Text faded color 2 */
+    --txt-faded3:#B1B1B1;           /* Text faded color 3 */
+}
+
+
+
+    /* Sizes */
+
+:root{
+    --size1:28px;                   /* Desktop Padding / Large Size */
+    --size2:20px;                   /* Mobile Padding / Small Size */
+    
+    --mainRadius1:28px;             /* Main content border radius 1 */
+    
+    --radius1:16px;                 /* Border Radius 1 */
+    --radius2:8px;                  /* Border Radius 2 */
+    
+    --box-shadow1:0 0 10px 1px;     /* Box Shadow 1 */
+    --box-shadow2:0 0 2px 0.5px;    /* Box Shadow 2 */
+    --box-shadow3:0 0 2px 2px;      /* Box Shadow 3 */
+    --box-shadow4:0 0 3px 2px;      /* Box Shadow 4 */
+}
+
+@media screen and (width <= 768px){
+    
+    :root{
+        --size1:var(--size2);
+    }
+
+}
+
+
+
+    /* Scrollbar */
+
+::-webkit-scrollbar{
+    width:6px;
+}
+
+::-webkit-scrollbar-track{
+    background:transparent;
+}
+
+::-webkit-scrollbar-thumb{
+    background:var(--color1);
+    border-radius:100px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:var(--color1a);
+}
+
+::-webkit-resizer{
+    background:var(--color1);
+}
+
+::-webkit-scrollbar-corner{
+    background:transparent;
+}
+
+    /* Firefox */
+
+@-moz-document url-prefix(){ 
+    
+    :root{
+        --box-shadow2:0 0 2px 1px;  /* Box Shadow 2 */
+    }
+    
+    *{
+        scrollbar-color:var(--color1) transparent !important;
+        scrollbar-width:thin !important;
+    }
+
+}
+
+
+
+    /* Basic settings */
+
+        /* Page */
+
+*{
+    margin:0;
+    padding:0;
+    font-family:font2, Roboto, Arial, sans-serif; /* Stupid firefox... */
+    -webkit-tap-highlight-color:transparent;
+}
+
+*:focus{
+    outline:0 !important;
+}
+
+*:selection{
+    background:var(--color1) !important;
+}
+
+/* Remove transition on page load */
+.remove-transition *:not(.tile){
+    transition:none !important;
+}
+
+/* IMPORTANT - it allows the sticky container to work correctly */
+html, body{
+    min-height:100%;
+}
+
+html{
+    position:relative;
+}
+
+body{
+    width:100%;
+    max-width:100vw;
+    
+    background-color:var(--shade2);
+    overflow-x:hidden;
+    overflow-y:hidden;
+}
+
+.hide-modal{
+    overflow-y:auto;
+}
+
+.page-content{
+    width:100%;
+    position:absolute;
+    top:100vh;
+    transition:0.5s;
+}
+
+.hide-modal .page-content{
+    top:0;
+}
+
+        /* Fonts */
+
+@font-face{
+    src:url(../fonts/Quicksand-VariableFont_wghtbold.woff2);
+    font-family:font1;
+}
+
+@font-face{
+    src:url(../fonts/Quicksand-SemiBold.ttf);
+    font-family:font1-semibold;
+}
+
+@font-face{
+    src:url(../fonts/Roboto-Regular.woff2);
+    font-family:font2;
+}
+
+p, a, label{
+    font-size:18px;
+    font-weight:400;
+    line-height:1.3em;
+    text-decoration:none;
+    color:var(--txt-faded);
+    transition:0.15s;
+}
+
+@media screen and (width <= 440px){
+    
+    p, a, label{
+        font-size:16px;
+        line-height:1.2em;
+    }
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family:font1, Calibri, sans-serif;
+    color:var(--txt1);
+    font-weight:800;
+    transition:0.15s;
+}
+
+h1{
+    font-size:38px;
+}
+h2{
+    font-size:36px;
+}
+h3{
+    font-size:28px;
+}
+h4{
+    font-size:20px;
+}
+h5{
+    font-size:18px;
+}
+h6{
+    font-size:16px;
+}
+
+@media screen and (width <= 440px){
+    
+    h1{
+        font-size:32px;
+    }
+    h2{
+        font-size:32px;
+    }
+    h3{
+        font-size:24px;
+    }
+    h4{
+        font-size:18px;
+    }
+    h5{
+        font-size:16px;
+    }
+    h6{
+        font-size:14px;
+    }
+}
+
+
+
+    /* Wrapper - change body content margins */
+
+.wrapper{
+    max-width:1440px;
+    padding:var(--mainPadding1);
+    margin:0 auto;
+    box-sizing:border-box;
+}
+
+
+
+    /* Scrolltop */
+
+#scrolltop{
+    width:45px;
+    height:45px;
+    background-color:var(--shade2);
+    position:fixed;
+    bottom:-100px;
+    right:30px;
+    transition:0.25s;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:var(--radius1);
+    cursor:pointer;
+    box-shadow:var(--box-shadow4) rgb(0,0,0,0.3);
+    z-index:1150;
+    opacity:0.6;
+}
+
+.dark-mode #scrolltop{
+    box-shadow:var(--box-shadow4) rgb(255,255,255,0.2);
+}
+
+#scrolltop:hover{
+    opacity:1;
+}
+
+#scrolltop.scrolltop-displayed{
+    bottom:30px;
+}
+
+.scrollarrow{
+    width:60%;
+    height:60%;
+    transform:rotate(180deg);
+    display:flex;
+    align-items:center;
+    user-select:none;
+}
+
+.scrollicon{
+    width:100%;
+    fill:var(--txt1);
+}
+
+        /* Scrolltop - media */
+
+@media screen and (width <= 768px){
+    
+    #scrolltop{
+        right:8px;
+    }
+    
+    #scrolltop.scrolltop-displayed{
+        bottom:8px;
+        right:8px;
+    }
+    
+}
+
+
+
+    /* Nav */
+
+nav{
+    height:100px;
+    margin-top:var(--size1);
+    padding:0 var(--size1);
+}
+
+.nav{
+    width:calc(100% - (var(--size1) * 2));
+    height:inherit;
+    margin:0 var(--size1);
+
+    position:fixed;
+    top:-100%;
+    left:0;
+    
+    transition:0.5s;
+    z-index:9999;
+}
+
+.hide-modal .nav{
+    top:0;
+}
+
+.nav-wrapper{
+    height:100%;
+    margin-top:var(--size1);
+    padding:var(--size1);
+
+    display:flex;
+    justify-content:space-between;
+
+    background-color:var(--shade3);
+    box-shadow:var(--box-shadow1) var(--wrapperColor1), var(--box-shadow2) var(--wrapperColor1);
+    border-radius:var(--mainRadius1);
+    transition:0.15s;
+}
+
+.scrolled-nav .nav-wrapper{
+    margin-top:0;
+    border-radius:0 0 var(--mainRadius1) var(--mainRadius1);
+}
+
+        /* Nav Logo */
+        
+.nav-logo svg{
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+        /* Dark Mode */
+
+.dark-mode-div{
+    display:flex;
+    align-items:center;
+}
+
+.dm-btn{
+    display:none;
+}
+
+.dm-label{
+    width:64px;
+    height:28px;
+
+    position:relative;
+    transition:ease-in-out 0.15s;
+    cursor:pointer;
+
+    background-image:url("../img/moon.svg"), url("../img/sun.svg");
+    background-position:3px center, calc(100% - 3px) center;
+    background-repeat:no-repeat;
+    background-size:24px;
+
+    border:solid 2px white;
+    border-radius:100px;
+}
+
+.dm-label:after{
+    content:"";
+    height:calc(100% - 4px);
+    aspect-ratio:1/1;
+    margin:2px;
+    position:absolute;
+    left:0;
+    top:0;
+    border-radius:50%;
+    background-color:white;
+    transition:ease-in-out 0.15s;
+}
+
+.dark-mode .dm-label:after{
+    left:calc(50% + 4px);
+}
+
+        /* Nav - media */
+
+@media screen and (width <= 540px){
+
+
+    
+}
+
+
+
+    /* Footer */
+
+footer{
+    padding:0 var(--size1);
+}
+
+footer .wrapper{
+    margin-bottom:var(--size1);
+    padding:var(--size1);
+    position:relative;
+
+    background-color:var(--shade3);
+    box-shadow:var(--box-shadow1) var(--wrapperColor1), var(--box-shadow2) var(--wrapperColor1);
+    border-radius:var(--mainRadius1);
+    transition:0.15s;
+    z-index:50;
+}
+
+        /* Footer - brand */
+
+.brand{
+    width:100%;
+    height:100%;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.brand-logo{
+    cursor:pointer;
+    display:flex;
+    justify-content:center;
+}
+
+.brand-logo svg{
+    width:min(35vw, 175px);
+}
+
+.socials{
+    height:100%;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.socials a{
+    height:32px;
+    width:32px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:0 0 0 2px var(--txt-faded2);
+    border-radius:var(--radius2);
+}
+
+.dark-mode .socials a{
+    box-shadow:0 0 0 2px var(--txt1);
+}
+
+.socials a:hover{
+    box-shadow:0 0 0 0;
+}
+
+.socials svg{
+    height:70%;
+    fill:var(--txt-faded2);
+    transition:0.15s;
+}
+
+.dark-mode .socials svg{
+    fill:var(--txt1);
+}
+
+.socials a:hover svg{
+    height:90%;
+    fill:var(--color1);
+}
+
+        /* Footer - credits */
+
+.credits{
+    position:absolute;
+    bottom:5px;
+    right:var(--size1);
+}
+
+.credits a{
+    padding-top:5px;
+
+    color:var(--txt1);
+    font-size:13px;
+    opacity:0.7;
+    transition:0.15s;
+}
+
+.credits a:hover{
+    opacity:1;
+}
+
+        /* Footer - media */
+
+@media screen and (width <= 768px){
+
+    .credits{
+        bottom:3px;
+    }
+    
+    .credits a{
+        font-size:12px;
+        padding-top:3px;
+    }
+    
+}
+
+@media screen and (width <= 540px){
+
+    footer{
+        padding:0;
+    }
+
+    footer .wrapper{
+        margin:0;
+        border-radius:0;
+    }
+
+    .brand{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .brand-logo svg{
+        width:min(80%, 175px);
+    }
+
+    .socials{
+        flex-direction:column;
+        padding-bottom:var(--size1);
+    }
+
+    .credits{
+        width:100%;
+        position:absolute;
+        bottom:5px;
+        right:50%;
+        transform:translate(50%, 0);
+        text-align:center;
+    }
+    
+}
+
+
+
+                /*   /\-/\-/\| MAIN CONTENT |/\-/\-/\   */
+
+
+
+    /* Page background */
+
+.main-background{
+    /* Prevent gaps on the sides */
+    width:calc(100% + 4px);
+    height:100%;
+
+    position:fixed;
+    top:0;
+    left:calc(50% - 2px);
+    transform:translate3D(-50%, 0, 0);
+
+    background-image:url("../img/bgreversed.svg");
+    background-size:cover;
+    background-position:center;
+    animation:mainBgShrink 2s cubic-bezier(0,.3,.4,1);
+}
+
+.dark-mode .main-background{
+    background-image:url("../img/bgreversed-dark.svg");
+}
+
+.main-background:after{
+    content:"";
+    width:100%;
+    height:100%;
+    
+    position:absolute;
+    top:0;
+    left:0;
+    animation:antiFlicker 0.1s;
+}
+
+@keyframes antiFlicker{
+    0%{
+        background-color:var(--shade2);
+    }
+    75%{
+        background-color:var(--shade2);
+    }
+    100%{
+        background-color:transparent;
+    }
+}
+
+@keyframes mainBgShrink{
+    0%{
+        padding:0 20%;
+    }
+    100%{
+        padding:0;
+    }
+}
+@media screen and (width <= 1440px){
+    @keyframes mainBgShrink{
+        0%{
+            padding:0 35%;
+        }
+        100%{
+            padding:0;
+        }
+    }
+}
+@media screen and (width <= 1200px){
+    @keyframes mainBgShrink{
+        0%{
+            padding:0;
+        }
+        100%{
+            padding:0;
+        }
+    }
+}
+
+:root{
+    --gradBgWidth:calc(100% / 11);
+}
+
+.main-bg-grad{
+    height:100%;
+    width:200%;
+    position:fixed;
+    bottom:0;
+    
+    /* Change speed in updateGradient() in JS script-pack to negative and here change left to 0 for Right to Left gradient */
+    left:-100%;
+    
+    /* Image has better perf. than CSS gradient */
+    background:linear-gradient(to right, 
+        var(--color1a) calc(var(--gradBgWidth) * 1),
+        var(--color1) calc(var(--gradBgWidth) * 3),
+        var(--color3a) calc(var(--gradBgWidth) * 5),
+        var(--color2) calc(var(--gradBgWidth) * 7),
+        var(--color2a) calc(var(--gradBgWidth) * 9),
+        var(--color1a) calc(var(--gradBgWidth) * 11));
+
+    background-size:50%;
+    /* The rest is in script-pack JS */
+}
+
+    /* Main */
+
+main{
+    padding:0 var(--size1);
+    background-color:var(--shade1);
+    transition:0.15s;
+}
+
+.main-wrapper{
+    margin:var(--size1) auto;
+    padding:var(--size1);
+    position:relative;
+
+    background-color:var(--shade3);
+    border-radius:var(--mainRadius1);
+    box-shadow:var(--box-shadow1) var(--wrapperColor1), var(--box-shadow2) var(--wrapperColor1);
+    backdrop-filter:blur(4px);
+
+    transition:0.15s;
+}
+
+.main-module-content{
+    flex:1;
+    display:flex;
+    align-items:center;
+    flex-direction:column;
+}
+
+.uverit-logo svg *{
+    stroke-width:0;
+}
+
+.uverit-logo svg .cls-1{
+    fill:var(--txt-faded);
+}
+
+.dark-mode .uverit-logo svg .cls-1{
+    fill:var(--txt1);
+}
+
+.uverit-logo svg .cls-2{
+    fill:var(--color1);
+}
+
+        /* Main Header */
+
+.main-header{
+    width:100%;
+    margin-bottom:var(--size1);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.mh-title{
+    background:linear-gradient(to right,
+        var(--color1a), var(--color1), var(--color2), var(--color2a));
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    
+    font-family:font1-semibold;
+    font-size:56px;
+    filter:drop-shadow(0 0 1px var(--shade2));
+}
+
+.mh-brand{
+    font-family:cp-font1;
+    font-size:36px;
+    text-align:center;
+}
+
+.s-font1 .mh-brand{
+    font-size:32px;
+}
+
+        /* Main - media */
+
+@media screen and (width <= 540px){
+    
+    main{
+        padding:0;
+    }
+    
+    .main-wrapper{
+        border-radius:0;
+    }
+
+    .mh-title{
+        font-size:10vw;
+    }
+
+    .mh-brand{
+        font-size:6.5vw;
+    }
+
+    .s-font1 .mh-brand{
+        font-size:5.5vw;
+    }
+
+}

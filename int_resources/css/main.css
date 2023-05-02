@@ -1,0 +1,34 @@
+
+
+
+    /* Logo Modal */
+
+.logo-modal{
+    width:100%;
+    height:100vh;
+
+    position:absolute;
+    top:0;
+    left:0;
+
+    transition:0.5s;
+    z-index:10000;
+}
+
+.hide-modal .logo-modal{
+    top:-120%;
+}
+
+.logo-modal-inner{
+    width:100%;
+    height:calc(100% - (var(--size1) * 2));
+    margin:var(--size1) auto;
+    padding:var(--size1);
+    box-sizing:border-box;
+
+    background-color:var(--shade3);
+    box-shadow:var(--box-shadow1) var(--wrapperColor1), var(--box-shadow2) var(--wrapperColor1);
+    border-radius:var(--mainRadius1);
+
+    transition:0.15s;
+}
