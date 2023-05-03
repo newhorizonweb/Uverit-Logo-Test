@@ -4,14 +4,16 @@
     /* Logo Modal */
 
 .logo-modal{
-    width:100%;
+    width:100vw;
     height:100vh;
+    padding:0 var(--size1);
+    box-sizing:border-box;
 
     position:absolute;
     top:0;
     left:0;
 
-    transition:0.5s;
+    transition:all 0.15s, top 0.5s;
     z-index:10000;
 }
 
@@ -32,3 +34,18 @@
 
     transition:0.15s;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

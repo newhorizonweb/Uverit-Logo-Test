@@ -1,6 +1,6 @@
 /* Program Settings */
 // Program Version
-const programVersion = "v0.0.1";
+const programVersion = "v0.0.2";
 // Uverit URL
 const uveritLink = "https://www.fiverr.com/new_horizon_web";
 /* Embedded SVG */
@@ -10,7 +10,7 @@ const uveritLogo = "<svg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.o
 const fiIcon = "<svg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' id='Layer_2' x='0' y='0' style='enable-background:new 0 0 400 400' version='1.1' viewBox='0 0 400 400'><path d='M338 325V125H138v-13c0-20 16-37 37-37h37V0h-37C113 0 63 50 63 113v12H13v75h50v125H13v75h175v-75h-50V200h125v125h-50v75h175v-75h-50z' class='st0'/><circle cx='300' cy='37.5' r='37.5' class='st0'/></svg>";
 // Arrow icon
 const arrowIcon = "<svg class='scrollicon' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 426.3 255.4' xmlns:v='https://vecta.io/nano'><path d='M414 12.2l-.3-.2a43.13 43.13 0 0 0-29.4-12C373-.1 362.1 4.4 354 12.4L213.6 153.6h0 0 0L73.2 12.4C65.1 4.4 54.2-.1 42.9 0a43.13 43.13 0 0 0-29.4 12l-.3.2C-3.3 29-3.1 56 13.5 72.6l170.7 170.6c8.2 8 18.8 12.1 29.3 12.2h.1 0 0 0c10.6-.1 21.2-4.2 29.4-12.2L413.7 72.6c16.6-16.6 16.8-43.6.3-60.4z'/></svg>";
-/* Footer */
+//*--|*|--*\\_____// Footer \\_____//*--|*|--*\\
 const footerDate = new Date().getFullYear();
 const footerContent = "<div class='wrapper'>" +
     "<div class='brand'>" +
@@ -39,7 +39,9 @@ document.addEventListener("DOMContentLoaded", function () {
     logoElements.forEach((logoElem) => {
         logoElem.innerHTML = uveritLogo;
     });
+    //*--|*|--*\\_____// Navigation \\_____//*--|*|--*\\
     /* Nav */
+    // Adjust the navigation when the page is scrolled down
     const nav = document.querySelector("nav");
     function navOnScroll() {
         if (window.scrollY > 0) {
@@ -51,9 +53,147 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     window.addEventListener("load", navOnScroll);
     window.addEventListener("scroll", navOnScroll);
-    /* Logo Modal */
+    /* Nav Burger */
+    const navigation = document.querySelector(".navigation");
+    const burger = document.querySelector(".burger-btn");
+    // Open the navbar element on burger button click
+    burger?.addEventListener("click", function () {
+        navigation?.classList.toggle("nav-open");
+    });
+    // Close the navbar
+    window?.addEventListener("click", function (e) {
+        const thisTarget = e.target;
+        if (!thisTarget.closest(".navbar") &&
+            !thisTarget.closest(".burger-btn") ||
+            thisTarget.closest(".nav-link")) {
+            navigation?.classList.remove("nav-open");
+        }
+    });
+    /* Navbar Elements + Scroll */
+    // Elements
+    const navbarInner = document.querySelector(".navbar-inner");
+    const scrolltoElements = document.querySelectorAll(".scrollto");
+    const stElementHeadings = document.querySelectorAll(".st-heading");
+    for (let i = 0; i < scrolltoElements.length; i++) {
+        // Add a class to the element
+        const scrolltoElem = scrolltoElements[i];
+        const stElemHeading = stElementHeadings[i];
+        scrolltoElem.classList.add("nav-link" + i);
+        scrolltoElem.setAttribute("data-link", "nav-link" + i);
+        // Create nav-link element
+        const navLink = document.createElement("div");
+        navLink.classList.add("nav-link");
+        navLink.setAttribute("data-link", "nav-link" + i);
+        // Create nav-link-inner element
+        const navLinkInner = document.createElement("p");
+        navLinkInner.classList.add("nav-link-inner");
+        navLinkInner.innerHTML = stElemHeading.innerHTML;
+        navLink.appendChild(navLinkInner);
+        // Append everything
+        navbarInner?.appendChild(navLink);
+    }
+    // Nav link elements
+    const navLinks = document.querySelectorAll(".nav-link");
+    // Navigation height
+    const navHeight = navigation.offsetHeight;
+    // Element scroll offset
+    // Leave a gap between the edge of the screen and the element (this value in px)
+    const elemScrollOffset = 50;
+    // On nav link click
+    navLinks.forEach((navLink) => {
+        navLink.addEventListener("click", function (e) {
+            const navLinkData = this.getAttribute("data-link");
+            // Get the target element position
+            const scrolltoElem = document.querySelector("." + navLinkData);
+            const sctolltoElemTop = scrolltoElem.getBoundingClientRect().top;
+            // Scroll to the element
+            window.scroll({
+                top: sctolltoElemTop + window.pageYOffset - navHeight - elemScrollOffset,
+                behavior: "smooth"
+            });
+        });
+    });
+    /* Navbar Closest Page Element (highlight nav element) */
+    function closestScrollTarget() {
+        // Window height
+        const windowHeight = window.innerHeight;
+        // Window scrolled distance from top
+        const scrollPos = window.pageYOffset;
+        // For each page scrollto element
+        scrolltoElements.forEach(function (scrollElem) {
+            // Page element distance from top
+            const thisPos = scrollElem.offsetTop - (windowHeight * 0.25);
+            // Page element data-link attribute (to match with the nav element)
+            const thisElem = scrollElem.getAttribute("data-link");
+            navLinks.forEach((navLink) => {
+                if (thisPos <= scrollPos) {
+                    if (navLink.getAttribute("data-link") === thisElem) {
+                        navLink.classList.add("closest-elem");
+                    }
+                    else {
+                        navLink.classList.remove("closest-elem");
+                    }
+                }
+                else if (navLink.getAttribute("data-link") === thisElem) {
+                    navLink.classList.remove("closest-elem");
+                }
+            });
+        });
+    }
+    window.addEventListener("load", closestScrollTarget);
+    window.addEventListener("resize", closestScrollTarget);
+    // Debounce the function on scroll
+    let canRun = true;
+    window.addEventListener("scroll", function () {
+        if (canRun) {
+            canRun = false;
+            setTimeout(() => {
+                closestScrollTarget();
+                canRun = true;
+            }, 50);
+        }
+    });
+    //*--|*|--*\\_____// Logo Modal \\_____//*--|*|--*\\
     const body = document.querySelector("body");
     document.querySelector(".lm-btn")?.addEventListener("click", function () {
         body.classList.add("hide-modal");
+    });
+    // Temporary (delete later, I don't want to hide this element every time i refresh the page)
+    //body!.classList.add("hide-modal");
+    // Drop zone element
+    const dropZone = document.querySelector(".drop-zone");
+    // Insert the image into these elements
+    const insertLogoElements = document.querySelectorAll(".insert-logo");
+    // Accepted file types
+    const fileTypes = ['image/png', 'image/svg+xml'];
+    document.documentElement.addEventListener('drop', function (e) {
+        // Prevent from opening the file in another tab
+        e.preventDefault();
+    });
+    // When dragging the file over the document
+    document.documentElement.addEventListener('dragover', function (e) {
+        e.preventDefault();
+        // Get the file dragged over the document
+        const file = e.dataTransfer?.items[0];
+        // If the file is not of the correct type
+        if (file && !fileTypes.includes(file.type)) {
+            console.log('Invalid file type!');
+        }
+    });
+    // When dropping the file onto the drop zone element
+    dropZone?.addEventListener('drop', function (e) {
+        // Get the dropped file
+        const file = e.dataTransfer?.files[0];
+        if (file && fileTypes.includes(file.type)) {
+            // Create an URL object
+            const url = URL.createObjectURL(file);
+            insertLogoElements.forEach((logoElem) => {
+                // Create an image element
+                const logoImg = document.createElement("img");
+                logoImg.src = url;
+                // Append logo to the element
+                logoElem.appendChild(logoImg);
+            });
+        }
     });
 });

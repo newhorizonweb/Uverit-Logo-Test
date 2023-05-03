@@ -4,7 +4,7 @@
     /* Program Settings */
 
 // Program Version
-const programVersion:string = "v0.0.1";
+const programVersion:string = "v0.0.2";
 
 // Uverit URL
 const uveritLink:string = "https://www.fiverr.com/new_horizon_web";
@@ -24,7 +24,9 @@ const arrowIcon: string = "<svg class='scrollicon' xmlns='http://www.w3.org/2000
 
 
 
-    /* Footer */
+//*--|*|--*\\_____// Footer \\_____//*--|*|--*\\
+
+
 
 const footerDate: number = new Date().getFullYear();
 
@@ -54,12 +56,13 @@ function baseFooter(){
 
 
 
+
     /* After Content Load */
 
 document.addEventListener("DOMContentLoaded", function(){
 
 
-
+    
         /* Insert Uverit Logo into the HTML elements */
 
     const logoElements:NodeListOf<Element> = document.querySelectorAll(".uverit-logo");
@@ -70,8 +73,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 
+    //*--|*|--*\\_____// Navigation \\_____//*--|*|--*\\
+
+
+
         /* Nav */
 
+    // Adjust the navigation when the page is scrolled down
     const nav:HTMLElement | null = document.querySelector("nav");
 
     function navOnScroll(){
@@ -87,19 +95,208 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 
-        /* Logo Modal */
+        /* Nav Burger */
 
-    const body:HTMLElement | null = document.querySelector("body");
-    
-    document.querySelector(".lm-btn")?.addEventListener("click", function(){
+    const navigation:HTMLElement | null = document.querySelector(".navigation");
+    const burger:HTMLElement | null = document.querySelector(".burger-btn");
 
-        body!.classList.add("hide-modal");
+    // Open the navbar element on burger button click
+    burger?.addEventListener("click", function(){
+        navigation?.classList.toggle("nav-open");
+    });
 
+    // Close the navbar
+    window?.addEventListener("click", function(e){
+        const thisTarget:HTMLElement = (e.target as HTMLElement);
+
+        if (!thisTarget.closest(".navbar") &&
+        !thisTarget.closest(".burger-btn") ||
+        thisTarget.closest(".nav-link")){
+            navigation?.classList.remove("nav-open");
+        }
     });
 
 
 
+        /* Navbar Elements + Scroll */
 
+    // Elements
+    const navbarInner:HTMLElement | null = document.querySelector(".navbar-inner");
+    const scrolltoElements:NodeListOf<Element> = document.querySelectorAll(".scrollto");
+    const stElementHeadings:NodeListOf<Element> = document.querySelectorAll(".st-heading");
+
+    for (let i = 0; i < scrolltoElements.length; i++){
+
+        // Add a class to the element
+        const scrolltoElem:Element = scrolltoElements[i];
+        const stElemHeading:Element = stElementHeadings[i];
+
+        scrolltoElem.classList.add("nav-link"+i);
+        scrolltoElem.setAttribute("data-link", "nav-link"+i);
+
+        // Create nav-link element
+        const navLink:HTMLElement = document.createElement("div");
+        navLink.classList.add("nav-link");
+        navLink.setAttribute("data-link", "nav-link"+i);
+
+        // Create nav-link-inner element
+        const navLinkInner:HTMLElement = document.createElement("p");
+        navLinkInner.classList.add("nav-link-inner");
+        navLinkInner.innerHTML = stElemHeading.innerHTML;
+        navLink.appendChild(navLinkInner)
+
+        // Append everything
+        navbarInner?.appendChild(navLink);
+    }
+
+    // Nav link elements
+    const navLinks:NodeListOf<Element> = document.querySelectorAll(".nav-link");
+
+    // Navigation height
+    const navHeight:number = navigation!.offsetHeight;
+
+    // Element scroll offset
+    // Leave a gap between the edge of the screen and the element (this value in px)
+    const elemScrollOffset:number = 50;
+
+    // On nav link click
+    navLinks.forEach((navLink) => {
+        navLink.addEventListener("click", function(e){
+            const navLinkData = this.getAttribute("data-link");
+
+            // Get the target element position
+            const scrolltoElem:HTMLElement | null = document.querySelector("."+navLinkData);
+            const sctolltoElemTop:number = scrolltoElem!.getBoundingClientRect().top;
+
+            // Scroll to the element
+            window.scroll({
+                top:sctolltoElemTop + window.pageYOffset - navHeight - elemScrollOffset,
+                behavior:"smooth"
+            });
+        });
+    });
+
+
+
+        /* Navbar Closest Page Element (highlight nav element) */
+
+    function closestScrollTarget(){
+
+        // Window height
+        const windowHeight:number = window.innerHeight;
+
+        // Window scrolled distance from top
+        const scrollPos:number = window.pageYOffset;
+
+        // For each page scrollto element
+        scrolltoElements.forEach(function(scrollElem){
+
+            // Page element distance from top
+            const thisPos:number = (scrollElem as HTMLElement).offsetTop - (windowHeight * 0.25);
+
+            // Page element data-link attribute (to match with the nav element)
+            const thisElem:string | null = scrollElem.getAttribute("data-link");
+
+            navLinks.forEach((navLink) => {
+                if (thisPos <= scrollPos){
+                
+                    if (navLink.getAttribute("data-link") === thisElem){
+                        navLink.classList.add("closest-elem");
+                    } else {
+                        navLink.classList.remove("closest-elem");
+                    }
+
+                } else if(navLink.getAttribute("data-link") === thisElem){
+                    navLink.classList.remove("closest-elem");
+                }
+            });
+        });
+    }
+
+    window.addEventListener("load", closestScrollTarget);
+    window.addEventListener("resize", closestScrollTarget);
+    
+    // Debounce the function on scroll
+    let canRun:boolean = true;
+    window.addEventListener("scroll", function(){
+        if (canRun){
+            canRun = false;
+
+            setTimeout(() => {
+                closestScrollTarget();
+                canRun = true;
+            }, 50);
+        }
+    });
+
+
+
+    //*--|*|--*\\_____// Logo Modal \\_____//*--|*|--*\\
+
+
+        
+    const body:HTMLElement | null = document.querySelector("body");
+    
+    document.querySelector(".lm-btn")?.addEventListener("click", function(){
+        body!.classList.add("hide-modal");
+    });
+
+    // Temporary (delete later, I don't want to hide this element every time i refresh the page)
+    //body!.classList.add("hide-modal");
+
+
+    
+    // Drop zone element
+    const dropZone:HTMLElement | null = document.querySelector(".drop-zone");
+
+    // Insert the image into these elements
+    const insertLogoElements:NodeListOf<Element> = document.querySelectorAll(".insert-logo");
+
+    // Accepted file types
+    const fileTypes = ['image/png', 'image/svg+xml'];
+    
+    document.documentElement.addEventListener('drop', function(e){
+
+        // Prevent from opening the file in another tab
+        e.preventDefault();
+    });
+
+    // When dragging the file over the document
+    document.documentElement.addEventListener('dragover', function(e){
+        e.preventDefault();
+
+        // Get the file dragged over the document
+        const file = e.dataTransfer?.items[0];
+
+        // If the file is not of the correct type
+        if (file && !fileTypes.includes(file.type)){
+            console.log('Invalid file type!');
+        }
+    });
+
+    // When dropping the file onto the drop zone element
+    dropZone?.addEventListener('drop', function(e){
+
+        // Get the dropped file
+        const file = e.dataTransfer?.files[0];
+
+        if (file && fileTypes.includes(file.type)){
+
+            // Create an URL object
+            const url:string = URL.createObjectURL(file);
+            
+            insertLogoElements.forEach((logoElem) => {
+
+                // Create an image element
+                const logoImg:HTMLImageElement = document.createElement("img");
+                logoImg.src = url;
+
+                // Append logo to the element
+                logoElem.appendChild(logoImg);
+            });
+        }
+
+    });
 
 });
 
