@@ -1,6 +1,6 @@
 /* Program Settings */
 // Program Version
-const programVersion = "v0.0.2";
+const programVersion = "v0.0.3";
 // Uverit URL
 const uveritLink = "https://www.fiverr.com/new_horizon_web";
 /* Embedded SVG */
@@ -32,7 +32,6 @@ function baseFooter() {
     const footer = document.getElementsByTagName("footer")[0];
     footer.innerHTML = footerContent;
 }
-/* After Content Load */
 document.addEventListener("DOMContentLoaded", function () {
     /* Insert Uverit Logo into the HTML elements */
     const logoElements = document.querySelectorAll(".uverit-logo");
@@ -151,49 +150,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 closestScrollTarget();
                 canRun = true;
             }, 50);
-        }
-    });
-    //*--|*|--*\\_____// Logo Modal \\_____//*--|*|--*\\
-    const body = document.querySelector("body");
-    document.querySelector(".lm-btn")?.addEventListener("click", function () {
-        body.classList.add("hide-modal");
-    });
-    // Temporary (delete later, I don't want to hide this element every time i refresh the page)
-    //body!.classList.add("hide-modal");
-    // Drop zone element
-    const dropZone = document.querySelector(".drop-zone");
-    // Insert the image into these elements
-    const insertLogoElements = document.querySelectorAll(".insert-logo");
-    // Accepted file types
-    const fileTypes = ['image/png', 'image/svg+xml'];
-    document.documentElement.addEventListener('drop', function (e) {
-        // Prevent from opening the file in another tab
-        e.preventDefault();
-    });
-    // When dragging the file over the document
-    document.documentElement.addEventListener('dragover', function (e) {
-        e.preventDefault();
-        // Get the file dragged over the document
-        const file = e.dataTransfer?.items[0];
-        // If the file is not of the correct type
-        if (file && !fileTypes.includes(file.type)) {
-            console.log('Invalid file type!');
-        }
-    });
-    // When dropping the file onto the drop zone element
-    dropZone?.addEventListener('drop', function (e) {
-        // Get the dropped file
-        const file = e.dataTransfer?.files[0];
-        if (file && fileTypes.includes(file.type)) {
-            // Create an URL object
-            const url = URL.createObjectURL(file);
-            insertLogoElements.forEach((logoElem) => {
-                // Create an image element
-                const logoImg = document.createElement("img");
-                logoImg.src = url;
-                // Append logo to the element
-                logoElem.appendChild(logoImg);
-            });
         }
     });
 });

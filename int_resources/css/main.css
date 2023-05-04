@@ -35,17 +35,140 @@
     transition:0.15s;
 }
 
+        /* Modal Icon */
 
+.modal-icon{
+    width:300px;
+    height:300px;
+    margin:auto;
+    pointer-events:none;
+}
 
+.modal-icon *{
+    stroke-width:12px;
+    stroke:#999;
+    transition:0.25s;
+}
 
+            /* Modal Icon - Upload */
 
+.modal-icon-active .lm-upload-inner{
+    stroke:var(--color1);
+}
 
+.modal-drop .lm-upload-icon circle{
+    stroke:var(--color1);
+}
 
+.lm-upload-arrow{
+    animation:uploadIconMove 4.5s infinite;
+}
 
+.lm-upload-arrowshaft{
+    animation:uploadIconShaft 4.5s infinite, uploadIconMove 4.5s infinite;
+}
 
+@keyframes uploadIconMove{
+    25%{
+        transform:translate(0, 0);
+    }
+    30%{
+        transform:translate(0, -10px);
+    }
+    38%{
+        transform:translate(0, 5px);
+    }
+    50%{
+        transform:translate(0, 0);
+    }
+}
 
+@keyframes uploadIconShaft{
+    25%{
+        stroke-dasharray:100;
+        stroke-dashoffset:0;
+    }
+    30%{
+        stroke-dasharray:60;
+        stroke-dashoffset:-12;
+    }
+    38%{
+        stroke-dasharray:80;
+        stroke-dashoffset:-3;
+    }
+    50%{
+        stroke-dasharray:100;
+        stroke-dashoffset:0;
+    }
+}
 
+            /* Modal Icon - Checkmark */
 
+.lm-check-icon *{
+    stroke:var(--color1);
+}
 
+.lm-check-circle{
+    stroke-dasharray:600;
+    stroke-dashoffset:600;
+    animation:0.9s checkCircle forwards cubic-bezier(.14,.6,.56,.86);
+}
+    
+.lm-checkmark{
+    stroke-dasharray:150;
+    stroke-dashoffset:150;
 
+    animation:0.25s checkmark forwards cubic-bezier(.14,.6,.56,.86);
+    animation-delay:0.8s;
+}
 
+@keyframes checkCircle{
+    0%{
+        stroke-dashoffset:600;
+    }
+    100%{
+        stroke-dashoffset:0;
+    }
+}
+
+@keyframes checkmark{
+    0%{
+        stroke-dashoffset:150;
+    }
+    100%{
+        stroke-dashoffset:0;
+    }
+}
+        
+            /* Modal Icon - Wrong */
+
+.lm-wrong-inner{
+    stroke:var(--color2);
+}
+
+.lm-wrong-inner:nth-of-type(1){
+    animation:wrongIcon 4.5s 0.25s infinite;
+}
+
+.lm-wrong-inner:nth-of-type(2){
+    animation:wrongIcon 4.5s infinite;
+}
+
+@keyframes wrongIcon{
+    25%{
+        stroke-dasharray:115;
+        stroke-dashoffset:0;
+    }
+    35%{
+        stroke-dasharray:90;
+    }
+    45%{
+        stroke-dashoffset:-10;
+    }
+    55%{
+        stroke-dashoffset:0;
+    }
+    65%{
+        stroke-dasharray:115;
+    }
+}
