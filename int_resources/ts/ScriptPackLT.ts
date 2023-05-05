@@ -62,7 +62,6 @@ if (dmBtn !== null){
 
 
 
-
     /* Background gradient */
 
 // Gradient speed (0.1 slow, 10 fast as F) - currently 0.5 in (window.pageYOffset * ->0.5<-)...

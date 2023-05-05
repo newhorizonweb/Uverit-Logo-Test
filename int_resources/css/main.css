@@ -13,7 +13,7 @@
     top:0;
     left:0;
 
-    transition:all 0.15s, top 0.5s;
+    transition:all 0.15s, top 0.5s, width 0s, height 0s;
     z-index:10000;
 }
 
@@ -22,11 +22,13 @@
 }
 
 .logo-modal-inner{
-    width:100%;
     height:calc(100% - (var(--size1) * 2));
     margin:var(--size1) auto;
     padding:var(--size1);
     box-sizing:border-box;
+
+    display:flex;
+    justify-content:center;
 
     background-color:var(--shade3);
     box-shadow:var(--box-shadow1) var(--wrapperColor1), var(--box-shadow2) var(--wrapperColor1);
@@ -35,22 +37,86 @@
     transition:0.15s;
 }
 
-        /* Modal Icon */
+.logo-modal-content{
+    width:min(640px, 100%);
+    height:100%;
+    padding:var(--size1);
+    box-sizing:border-box;
+    position:relative;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:var(--size1);
+
+    background-color:var(--shade1);
+    box-shadow:var(--box-shadow1) var(--wrapperColor1), var(--box-shadow2) var(--wrapperColor1);
+    border-radius:var(--mainRadius1);
+
+    transition:0.15s;
+}
+
+        /* Logo Modal - Top */
+
+.lm-top{
+    margin-top:auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.lm-logo{
+    width:min(160px, 80%);
+}
+
+.lm-logo svg{
+    width:100%;
+}
+
+.logo-modal .main-header{
+    margin-bottom:0;
+    line-height:1.2;
+}
+
+        /* Logo Modal - Main */
+    
+.lm-main{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.lm-heading{
+    font-size:32px;
+    text-align:center;
+    text-transform:uppercase;
+}
+
+            /* Modal Icon */
+
+.drop-zone{
+    width:100%;
+    margin:var(--size2) 0;
+    display:flex;
+    justify-content:center;
+}
 
 .modal-icon{
-    width:300px;
-    height:300px;
+    width:min(275px, 100%);
+    aspect-ratio:1/1;
     margin:auto;
     pointer-events:none;
 }
 
 .modal-icon *{
-    stroke-width:12px;
-    stroke:#999;
+    stroke-width:8px;
+    stroke:var(--txt-faded3);
     transition:0.25s;
 }
 
-            /* Modal Icon - Upload */
+                /* Modal Icon - Upload */
 
 .modal-icon-active .lm-upload-inner{
     stroke:var(--color1);
@@ -102,7 +168,7 @@
     }
 }
 
-            /* Modal Icon - Checkmark */
+                /* Modal Icon - Checkmark */
 
 .lm-check-icon *{
     stroke:var(--color1);
@@ -140,7 +206,7 @@
     }
 }
         
-            /* Modal Icon - Wrong */
+                /* Modal Icon - Wrong */
 
 .lm-wrong-inner{
     stroke:var(--color2);
@@ -171,4 +237,235 @@
     65%{
         stroke-dasharray:115;
     }
+}
+
+            /* Logo Modal - File Button */
+
+.lm-txt-div{
+    margin-bottom:5px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2px;
+}
+
+.lm-txt{
+    font-size:16px;
+}
+
+.lm-file-btn{
+    width:200px;
+    height:50px;
+    box-sizing:border-box;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:var(--txt1);
+    font-size:20px;
+    font-family:font1-semibold;
+    text-transform:uppercase;
+
+    border:solid 4px var(--color1);
+    border-radius:200px;
+
+    transition:0.15s;
+    cursor:pointer;
+}
+
+.lm-file-btn:hover{
+    color:#FFF;
+    background-color:var(--color1);
+}
+
+.lm-file-type{
+    margin-top:5px;
+    font-size:14px;
+}
+
+        /* Logo Modal - Go To Page Button */
+
+.to-page{
+    margin-top:auto;
+
+    height:0;
+    aspect-ratio:2/1;
+    box-sizing:border-box;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    gap:8px;
+
+    transition:0.15s;
+    cursor:pointer;
+}
+
+.uploaded-logo{
+    height:60px;
+}
+
+.to-page *{
+    display:none;
+}
+
+.uploaded-logo *{
+    display:block;
+}
+
+.to-page p{
+    font-size:14px;
+    text-align:center;
+    text-transform:uppercase;
+}
+
+.to-page:hover p{
+    color:var(--color1);
+    transition:0.15s;
+}
+
+.to-page svg{
+    height:32px;
+    box-sizing:border-box;
+    position:relative;
+    transition:0.15s;
+}
+
+.to-page:hover svg{
+    padding-top:4px;
+    transform:translate(0, 6px);
+}
+
+.to-page .scrollicon *{
+    fill:var(--txt-faded3);
+    transition:0.15s;
+}
+
+.to-page:hover .scrollicon *{
+    fill:var(--color1);
+}
+
+        /* Logo Modal - media */
+
+/* Page Height */
+
+@media screen and (height <= 1024px){
+
+    .modal-icon{
+        width:auto;
+        height:20vh;
+    }
+
+}
+
+@media screen and (height <= 768px){
+
+    .lm-logo{
+        width:20vh;
+    }
+
+    .modal-icon{
+        height:100px;
+    }
+
+    .lm-txt-div{
+        display:none;
+    }
+
+}
+
+@media screen and (height <= 768px) and (orientation:landscape),
+screen and (height <= 540px){
+
+    .logo-modal-content{
+        gap:14px;
+    }
+
+    .logo-modal .mh-title{
+        font-size:6vh;
+    }
+
+    .lm-heading{
+        font-size:4vh;
+    }
+
+    .drop-zone{
+        margin:10px 0;
+    }
+
+    .to-page{
+        height:auto;
+    }
+
+    .to-page p{
+        display:none;
+    }
+
+    .to-page .scrollicon{
+        height:24px;
+    }
+
+}
+
+@media screen and (height <= 540px){
+    
+    .modal-icon{
+        height:80px;
+    }
+
+}
+
+@media screen and (height <= 440px){
+
+    .lm-heading{
+        margin-bottom:10px;
+    }
+    
+    .drop-zone{
+        display:none;
+    }
+
+}
+
+/* Page Width */
+
+@media screen and (width <= 540px){
+
+    .logo-modal .mh-title{
+        font-size:min(10vw, 6vh);
+    }
+    
+    .lm-heading{
+        font-size:6vw;
+    }
+
+}
+
+@media screen and (width <= 440px){
+    
+    .lm-file-btn{
+        width:100%;
+    }
+
+    .lm-txt-div{
+        display:none;
+    }
+
+}
+
+@media screen and (width <= 320px){
+    
+    .lm-file-btn{
+        font-size:6vw;
+    }
+
+}
+
+@media screen and (width <= 320px){
+    
+    .lm-heading{
+        font-size:5vw;
+    }
+
 }

@@ -7,13 +7,25 @@ const modCheckmarkIcon = "<svg class='modal-icon lm-check-icon' data-name='Layer
 const modWrongIcon = "<svg class='modal-icon lm-wrong-icon' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><defs><style>.cls-1{fill:none; stroke-linecap:round;stroke-linejoin:round;}</style></defs><circle class='cls-1' cx='100' cy='100' r='90'/><line class='cls-1 lm-wrong-inner' x1='61.3' y1='61.3' x2='138.7' y2='138.7'/><line class='cls-1 lm-wrong-inner' x1='138.7' y1='61.3' x2='61.3' y2='138.7'/></svg>";
 document.addEventListener("DOMContentLoaded", function () {
     const body = document.querySelector("body");
+    const uploadAgainBtn = document.querySelector(".upload-again");
     // Temporary (delete later, I don't want to hide this element every time i refresh the page)
     //body!.classList.add("hide-modal");
+    // Upload the logo again (show the modal after the first logo upload)
+    uploadAgainBtn?.addEventListener("click", function () {
+        // Scroll to the top of the page (async)
+        setTimeout(function () {
+            window.scrollTo(0, 0);
+        }, 0);
+        // Show the logo upload modal again
+        body?.classList.remove("hide-modal");
+    });
     /* File Upload */
     // Drop zone element
     const dropZone = document.querySelector(".drop-zone");
     // File input
     const fileInput = document.querySelector(".lm-file");
+    // Go back to the page button
+    const goToPageBtn = document.querySelector(".to-page");
     // Insert the image into these elements
     const insertLogoElements = document.querySelectorAll(".insert-logo");
     // Accepted file types
@@ -24,7 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
             // Create an image element
             const logoImg = document.createElement("img");
             logoImg.src = url;
-            // Append logo to the element
+            // Remove previous content from the logo elements
+            logoElem.innerHTML = "";
+            // Append logo to the elements
             logoElem.appendChild(logoImg);
         });
     }
@@ -45,9 +59,22 @@ document.addEventListener("DOMContentLoaded", function () {
     function successfulUpload() {
         dropZone.innerHTML = modCheckmarkIcon;
         setTimeout(function () {
+            // Hide the logo upload modal
             body.classList.add("hide-modal");
+            // Insert the upload icon and remove the classes
+            setTimeout(function () {
+                insertUploadIcon();
+                dropZone?.classList.remove("modal-icon-active");
+                dropZone?.classList.remove("modal-drop");
+                goToPageBtn?.classList.add("uploaded-logo");
+            }, 1000);
         }, 1500);
     }
+    /* Go back to the page */
+    goToPageBtn.innerHTML = "<p>Go Back</p>" + arrowIcon;
+    goToPageBtn.addEventListener("click", function () {
+        body.classList.add("hide-modal");
+    });
     /* Document drag events */
     document.documentElement.addEventListener('dragover', function (e) {
         e.preventDefault();

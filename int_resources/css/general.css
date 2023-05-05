@@ -203,7 +203,7 @@ body{
 .page-content{
     width:100%;
     position:absolute;
-    top:100vh;
+    top:110vh;
     transition:0.5s;
 }
 
@@ -298,8 +298,8 @@ h6{
     /* Wrapper - change body content margins */
 
 .wrapper{
-    max-width:1440px;
-    padding:var(--mainPadding1);
+    max-width:1200px;
+    padding:var(--size1);
     margin:0 auto;
     box-sizing:border-box;
 }
@@ -386,7 +386,7 @@ nav{
     top:-100%;
     left:0;
     
-    transition:0.5s;
+    transition:all 0.5s, width 0.15s, height 0s;
     z-index:9999;
 }
 
@@ -398,7 +398,6 @@ nav{
     height:100%;
     margin-top:var(--size1);
     padding:var(--size1);
-
     position:relative;
 
     display:flex;
@@ -413,6 +412,7 @@ nav{
 
 .scrolled-nav .nav-wrapper{
     margin-top:0;
+    box-shadow:var(--box-shadow1) var(--wrapperColor1), var(--box-shadow3) var(--wrapperColor1);
     border-radius:0 0 var(--mainRadius1) var(--mainRadius1);
 }
 
@@ -431,7 +431,40 @@ nav{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:var(--size1);
+    gap:var(--size2);
+}
+
+        /* Upload Again Button */
+
+.upload-again{
+    height:32px;
+    aspect-ratio:1/1;
+    padding:6px;
+    box-sizing:border-box;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border:solid 2px var(--txt1);
+    border-radius:20px;
+
+    transition:0.15s;
+    cursor:pointer;
+}
+
+.upload-again:hover{
+    border:solid 2px var(--color1);
+}
+
+.upload-again svg{
+    height:100%;
+}
+
+.upload-again svg *{
+    stroke:var(--txt1);
+    stroke-width:22px;
+    transition:0.15s;
 }
 
         /* Nav Burger */
@@ -439,10 +472,9 @@ nav{
 .burger-btn{
     width:36px;
     height:32px;
+    
     position:relative;
     transform:rotate(0deg);
-
-    transition:0.5s ease-in;
     cursor:pointer;
 }
 
@@ -588,7 +620,6 @@ nav{
 
 .navbar-inner{
     padding:var(--size1);
-
     display:flex;
     flex-direction:column;
     gap:8px;
@@ -597,7 +628,7 @@ nav{
     box-shadow:var(--box-shadow1) var(--wrapperColor1), var(--box-shadow2) var(--wrapperColor1);
     border-radius:var(--mainRadius1);
 
-    transition:0.15s;
+    transition:all 0.15s;
 }
 
 .nav-link{
@@ -705,10 +736,39 @@ nav{
     
 }
 
+@media screen and (width <= 540px){
+
+    nav{
+        margin-top:0;
+    }
+
+    .navigation{
+        width:100%;
+        margin:0;
+    }
+
+    .nav-wrapper{
+        margin-top:0;
+        border-radius:0;
+    }
+
+    .scrolled-nav .nav-wrapper{
+        border-radius:0;
+    }
+    
+}
+
 @media screen and (width <= 440px){
 
     nav{
         height:auto;
+        margin:0;
+        padding:0;
+    }
+
+    .navigation{
+        position:relative;
+        top:0;
     }
 
     .nav-wrapper{
@@ -716,20 +776,32 @@ nav{
         gap:var(--size1);
     }
 
+    .scrolled-nav .nav-wrapper{
+        box-shadow:var(--box-shadow1) var(--wrapperColor1), var(--box-shadow2) var(--wrapperColor1);
+    }
+
     .nav-logo{
-        width:min(140px, 100%);
+        width:min(160px, 100%);
         height:auto;
     }
 
     .nav-elements{
-        width:min(140px, 100%);
+        width:min(160px, 100%);
         gap:0;
+    }
+
+    .nav-elements > div{
+        order:1;
+    }
+
+    .nav-elements .upload-again{
+        order:0;
     }
 
     .navbar{
         width:100%;
     }
-    
+
 }
 
 

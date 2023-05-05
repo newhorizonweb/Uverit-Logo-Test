@@ -17,11 +17,24 @@ const modWrongIcon:string = "<svg class='modal-icon lm-wrong-icon' data-name='La
 document.addEventListener("DOMContentLoaded", function(){
         
     const body:HTMLElement | null = document.querySelector("body");
+    const uploadAgainBtn:HTMLElement | null = document.querySelector(".upload-again");
 
     // Temporary (delete later, I don't want to hide this element every time i refresh the page)
     //body!.classList.add("hide-modal");
 
+    // Upload the logo again (show the modal after the first logo upload)
+    uploadAgainBtn?.addEventListener("click", function(){
 
+        // Scroll to the top of the page (async)
+        setTimeout(function(){
+            window.scrollTo(0, 0);
+        }, 0);
+
+        // Show the logo upload modal again
+        body?.classList.remove("hide-modal");
+    });
+
+    
 
         /* File Upload */
     
@@ -30,6 +43,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // File input
     const fileInput:HTMLInputElement | null = document.querySelector(".lm-file");
+
+    // Go back to the page button
+    const goToPageBtn:HTMLInputElement | null = document.querySelector(".to-page");
 
     // Insert the image into these elements
     const insertLogoElements:NodeListOf<Element> = document.querySelectorAll(".insert-logo");
@@ -47,7 +63,10 @@ document.addEventListener("DOMContentLoaded", function(){
             const logoImg:HTMLImageElement = document.createElement("img");
             logoImg.src = url;
 
-            // Append logo to the element
+            // Remove previous content from the logo elements
+            logoElem.innerHTML = "";
+
+            // Append logo to the elements
             logoElem.appendChild(logoImg);
         });
     }
@@ -73,9 +92,32 @@ document.addEventListener("DOMContentLoaded", function(){
         dropZone!.innerHTML = modCheckmarkIcon;
 
         setTimeout(function(){
+
+            // Hide the logo upload modal
             body!.classList.add("hide-modal");
+
+            // Insert the upload icon and remove the classes
+            setTimeout(function(){
+                insertUploadIcon();
+                dropZone?.classList.remove("modal-icon-active");
+                dropZone?.classList.remove("modal-drop");
+
+                goToPageBtn?.classList.add("uploaded-logo")
+            }, 1000);
+
         }, 1500);
+
     }
+
+
+
+        /* Go back to the page */
+
+    goToPageBtn!.innerHTML = "<p>Go Back</p>" + arrowIcon;
+
+    goToPageBtn!.addEventListener("click", function(){
+        body!.classList.add("hide-modal");
+    });
 
 
 
