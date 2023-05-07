@@ -4,7 +4,7 @@
     /* Program Settings */
 
 // Program Version
-const programVersion:string = "v0.1.0";
+const programVersion:string = "v0.2.0";
 
 // Uverit URL
 const uveritLink:string = "https://www.fiverr.com/new_horizon_web";

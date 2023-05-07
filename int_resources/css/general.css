@@ -5,7 +5,7 @@
 */
 
     /* Media breakpoints */
-    /* Width: 1440, 1200, 1024, 768, 540, 440, 320 */
+    /* Width: 1440, 1200, 1024, 900, 768, 540, 440, 320 */
 
 
 
@@ -203,8 +203,12 @@ body{
 .page-content{
     width:100%;
     position:absolute;
-    top:110vh;
+    top:0;
     transition:0.5s;
+}
+
+.page-ready .page-content{
+    top:110vh;
 }
 
 .hide-modal .page-content{
@@ -446,8 +450,9 @@ nav{
     justify-content:center;
     align-items:center;
 
+    background-color:var(--shade1);
     border:solid 2px var(--txt1);
-    border-radius:20px;
+    border-radius:200px;
 
     transition:0.15s;
     cursor:pointer;
@@ -488,6 +493,7 @@ nav{
     transform:translate(-50%, 0) rotate(0deg);
 
     display:block;
+    background-color:var(--shade1);
     border:solid 2px var(--txt1);
     border-radius:20px;
 
@@ -528,7 +534,7 @@ nav{
     left:50%;
     transform:translate(-50%, -50%) rotate(-135deg);
 
-    background-color:var(--shade3);
+    background-color:var(--shade1);
     transition-delay:0.1s;
 }
 
@@ -544,7 +550,7 @@ nav{
 
 .nav-open .burger-btn span{
     width:110%;
-    background-color:var(--shade3);
+    background-color:var(--shade1);
 }
 
 .nav-open .burger-btn span:is(:nth-child(1), :nth-child(4)){
@@ -691,6 +697,7 @@ nav{
     transition:ease-in-out 0.15s;
     cursor:pointer;
 
+    background-color:var(--shade1);
     background-image:url("../img/moon.svg"), url("../img/sun.svg");
     background-position:2px center, calc(100% - 2px) center;
     background-repeat:no-repeat;
@@ -756,6 +763,10 @@ nav{
         border-radius:0;
     }
     
+    .navbar{
+        border-radius:var(--mainRadius1) 0 0 var(--mainRadius1);
+    }
+    
 }
 
 @media screen and (width <= 440px){
@@ -800,6 +811,7 @@ nav{
 
     .navbar{
         width:100%;
+        border-radius:0;
     }
 
 }
@@ -1076,14 +1088,14 @@ main{
 .main-wrapper{
     min-height:350vh;
     margin:var(--size1) auto;
-    padding:var(--size1);
+    padding:0;
     position:relative;
 
     background-color:var(--shade3);
     border-radius:var(--mainRadius1);
     box-shadow:var(--box-shadow1) var(--wrapperColor1), var(--box-shadow2) var(--wrapperColor1);
-    backdrop-filter:blur(4px);
 
+    backdrop-filter:blur(4px);
     transition:0.15s;
 }
 
@@ -1092,7 +1104,7 @@ main{
     display:flex;
     align-items:center;
     flex-direction:column;
-    gap:80vh;
+    gap:calc(var(--size1) * 2);
 }
 
 .uverit-logo svg *{

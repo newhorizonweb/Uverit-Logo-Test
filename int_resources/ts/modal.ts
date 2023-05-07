@@ -14,7 +14,57 @@ const modWrongIcon:string = "<svg class='modal-icon lm-wrong-icon' data-name='La
 
 
 
+// Scroll page to the top
+function topPageScroll(){
+    window.scrollTo(0, 0);
+}
+
+
+
 document.addEventListener("DOMContentLoaded", function(){
+
+
+
+        /* Section fade-in/out */
+
+    const sectionElements:NodeListOf<Element> = document.querySelectorAll(".scrollto");
+
+    function sectionFade(){
+        
+        sectionElements.forEach((section) => {
+
+            // Section position
+            const sectionPos:DOMRect = section.getBoundingClientRect();
+
+            // Section heading element height
+            const secHeadHeight:number = (section.querySelector(".st-heading") as HTMLElement)?.offsetHeight;
+
+            // window height
+            const windowHeight:number = window.innerHeight;
+
+            // Section fade in when it's at the bottom of the page
+            if (sectionPos.top < windowHeight * 0.9 - secHeadHeight){
+                section.classList.add("fade-in");
+            } else {
+                section.classList.remove("fade-in");
+            }
+
+            // Section fade out when it's at the top of the page
+            if (sectionPos.bottom < windowHeight * 0.1){
+                section.classList.remove("fade-in");
+            }
+
+        });
+        
+    }
+
+    window.addEventListener("load", sectionFade);
+    window.addEventListener("scroll", sectionFade);
+    window.addEventListener("resize", sectionFade);
+
+
+
+        /* Upload Again Button */
         
     const body:HTMLElement | null = document.querySelector("body");
     const uploadAgainBtn:HTMLElement | null = document.querySelector(".upload-again");
@@ -49,11 +99,127 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // Insert the image into these elements
     const insertLogoElements:NodeListOf<Element> = document.querySelectorAll(".insert-logo");
-    
 
     // Accepted file types
     const fileTypes = ['image/png', 'image/svg+xml'];
 
+
+
+
+
+    // TEMPORARY
+    insertLogoElements.forEach((logoElem) => {
+
+        // Create an image element
+        const logoImg:HTMLImageElement = document.createElement("img");
+        logoImg.src = "int_resources/img/uverit-favicon-bbg.svg";
+        logoImg.classList.add("insert-logo-img");
+
+        // Remove previous content from the logo elements
+        logoElem.innerHTML = "";
+
+        // Append logo to the elements
+        logoElem.appendChild(logoImg);
+    });
+
+
+
+
+
+
+
+
+
+    // Calculate the AVG image color
+    function imgAvgColors(url){
+
+        // Scaled down image width (in px) - improve performance
+        const imgScaledWidth:number = 140;
+
+        // Create a new image element
+        const img:HTMLImageElement = document.createElement("img");
+        img.src = url;
+
+        // When the image is loaded
+        img.onload = function(){
+
+            // Image ratio
+            const imgRatio:number = img.width / img.height;
+
+            // Image new height
+            const imgScaledHeight:number = Math.round(imgScaledWidth / imgRatio);
+            
+            // Create a canvas element
+            const canvas:HTMLCanvasElement = document.createElement('canvas');
+            canvas.width = imgScaledWidth;
+            canvas.height = imgScaledHeight;
+
+            // Draw the image on the canvas
+            const ctx:CanvasRenderingContext2D | null = canvas.getContext('2d');
+            ctx!.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            // Get the image data
+            const imageData:ImageData = ctx!.getImageData(0, 0, canvas.width, canvas.height);
+            const data:Uint8ClampedArray = imageData.data;
+        
+            // Loop through each pixel
+            let totR:number = 0;
+            let totG:number = 0;
+            let totB:number = 0;
+            let totA:number = 0;
+
+            // Max and min color values
+            let maxVal:number = 0;
+            let minVal:number = 0;
+
+            for (let i = 0; i < data.length; i += 4){
+                const r:number = data[i];
+                const g:number = data[i + 1];
+                const b:number = data[i + 2];
+                const a:number = data[i + 3];
+
+                totR += r;
+                totG += g;
+                totB += b;
+                totA += a;
+
+                maxVal += Math.max(r, g, b);
+                minVal += Math.min(r, g, b);
+            }
+
+            const lightnessSum:number = (maxVal + minVal) / 2;
+           
+            // Number of pixels
+            const pixelCount:number = data.length / 4;
+
+            // Calculate the average color
+            const avgR:number = Math.round(totR / pixelCount);
+            const avgG:number = Math.round(totG / pixelCount);
+            const avgB:number = Math.round(totB / pixelCount);
+
+            const avgColor:string = `rgb(${avgR}, ${avgG}, ${avgB})`;
+
+            console.log(avgColor)
+
+            // Calculate the lightness
+            const transparency:string = 100 - Math.round(totA / pixelCount / 255 * 100) + "%";
+            console.log(transparency)
+
+            // Calculate the lightness
+            const lightness:number = Math.round(lightnessSum / pixelCount / 255 * 100);
+            console.log(`Lightness: ${lightness}`);
+
+            // Add a class to the body based on the image lightness
+            if (lightness >= 95){
+                body!.classList.add("dark-logo-bg");
+            }
+
+            if (lightness <= 10){
+                body!.classList.add("light-logo-bg");
+            }
+
+        }
+    }
 
     // Insert logo function
     function insertLogo(url){
@@ -62,6 +228,7 @@ document.addEventListener("DOMContentLoaded", function(){
             // Create an image element
             const logoImg:HTMLImageElement = document.createElement("img");
             logoImg.src = url;
+            logoImg.classList.add("insert-logo-img");
 
             // Remove previous content from the logo elements
             logoElem.innerHTML = "";
@@ -95,13 +262,25 @@ document.addEventListener("DOMContentLoaded", function(){
 
             // Hide the logo upload modal
             body!.classList.add("hide-modal");
+            
+            // Fade in the sections
+            // Call the function multiple times to make sure every section gets a chance to fade in
+            // 500ms would be too much delay, no content would look bad
+            let intervalId = setInterval(sectionFade, 100);
+
+            // Stop the interval after 1s
+            setTimeout(() => {
+                clearInterval(intervalId);
+            }, 700);
+
 
             // Insert the upload icon and remove the classes
             setTimeout(function(){
                 insertUploadIcon();
+                
                 dropZone?.classList.remove("modal-icon-active");
                 dropZone?.classList.remove("modal-drop");
-
+                
                 goToPageBtn?.classList.add("uploaded-logo")
             }, 1000);
 
@@ -217,6 +396,12 @@ document.addEventListener("DOMContentLoaded", function(){
 
             // Successful Upload
             successfulUpload();
+
+            // Calculate the AVG color values (async)
+            setTimeout(() => {
+                imgAvgColors(url);
+            }, 0);
+
         } else {
 
             // Insert upload icon
@@ -244,6 +429,11 @@ document.addEventListener("DOMContentLoaded", function(){
             // Successful Upload
             successfulUpload();
 
+            // Calculate the AVG color values (async)
+            setTimeout(() => {
+                imgAvgColors(url);
+            }, 0);
+
         } else if (file && !fileTypes.includes(file.type)){
             // Input (in HTML) excludes undesired file types, but just in case
 
@@ -259,4 +449,15 @@ document.addEventListener("DOMContentLoaded", function(){
 
     });
 
+
+
+    // Make sure to scroll the page to X = 0 && Y = 0 on load 
+    setTimeout(() => {
+        topPageScroll();
+    }, 50);
+
+    // Add a body class (set page content to top -110vh)
+    body?.classList.add("page-ready");
+
 });
+
