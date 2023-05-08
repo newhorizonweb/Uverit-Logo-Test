@@ -204,11 +204,13 @@ body{
     width:100%;
     position:absolute;
     top:0;
+    display:none;
     transition:0.5s;
 }
 
 .page-ready .page-content{
     top:110vh;
+    display:block;
 }
 
 .hide-modal .page-content{

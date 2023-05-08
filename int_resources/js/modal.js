@@ -9,6 +9,23 @@ const modWrongIcon = "<svg class='modal-icon lm-wrong-icon' data-name='Layer 1' 
 function topPageScroll() {
     window.scrollTo(0, 0);
 }
+// Toggle between logo modal and page content
+function pageToggle() {
+    document.addEventListener('keydown', function (e) {
+        if (e.key === "Enter") {
+            document.body.classList.toggle("hide-modal");
+            topPageScroll();
+        }
+        if (e.key === "ArrowLeft") {
+            document.body.classList.remove("hide-modal");
+            topPageScroll();
+        }
+        if (e.key === "ArrowRight") {
+            document.body.classList.add("hide-modal");
+            topPageScroll();
+        }
+    });
+}
 document.addEventListener("DOMContentLoaded", function () {
     /* Section fade-in/out */
     const sectionElements = document.querySelectorAll(".scrollto");
@@ -28,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 section.classList.remove("fade-in");
             }
             // Section fade out when it's at the top of the page
-            if (sectionPos.bottom < windowHeight * 0.1) {
+            if (sectionPos.bottom < windowHeight * 0.15) {
                 section.classList.remove("fade-in");
             }
         });
@@ -40,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const body = document.querySelector("body");
     const uploadAgainBtn = document.querySelector(".upload-again");
     // Temporary (delete later, I don't want to hide this element every time i refresh the page)
-    //body!.classList.add("hide-modal");
+    // body!.classList.add("hide-modal");
     // Upload the logo again (show the modal after the first logo upload)
     uploadAgainBtn?.addEventListener("click", function () {
         // Scroll to the top of the page (async)
@@ -75,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Calculate the AVG image color
     function imgAvgColors(url) {
         // Scaled down image width (in px) - improve performance
-        const imgScaledWidth = 140;
+        const imgScaledWidth = 200;
         // Create a new image element
         const img = document.createElement("img");
         img.src = url;
@@ -103,38 +120,43 @@ document.addEventListener("DOMContentLoaded", function () {
             // Max and min color values
             let maxVal = 0;
             let minVal = 0;
+            // total number of non-transparent pixels
+            let totAlpha = 0;
+            console.time("loop");
             for (let i = 0; i < data.length; i += 4) {
                 const r = data[i];
                 const g = data[i + 1];
                 const b = data[i + 2];
                 const a = data[i + 3];
-                totR += r;
-                totG += g;
-                totB += b;
                 totA += a;
-                maxVal += Math.max(r, g, b);
-                minVal += Math.min(r, g, b);
+                if (a > 0) {
+                    totR += r;
+                    totG += g;
+                    totB += b;
+                    maxVal += Math.max(r, g, b);
+                    minVal += Math.min(r, g, b);
+                    totAlpha++;
+                }
             }
-            const lightnessSum = (maxVal + minVal) / 2;
-            // Number of pixels
-            const pixelCount = data.length / 4;
+            console.timeEnd("loop");
             // Calculate the average color
-            const avgR = Math.round(totR / pixelCount);
-            const avgG = Math.round(totG / pixelCount);
-            const avgB = Math.round(totB / pixelCount);
+            const avgR = Math.round(totR / totAlpha);
+            const avgG = Math.round(totG / totAlpha);
+            const avgB = Math.round(totB / totAlpha);
             const avgColor = `rgb(${avgR}, ${avgG}, ${avgB})`;
             console.log(avgColor);
-            // Calculate the lightness
-            const transparency = 100 - Math.round(totA / pixelCount / 255 * 100) + "%";
-            console.log(transparency);
-            // Calculate the lightness
-            const lightness = Math.round(lightnessSum / pixelCount / 255 * 100);
+            // Calculate transparency
+            const transparency = 100 - Math.round(totA / (data.length / 4) / 255 * 100) + "%";
+            console.log(`Transparency: ${transparency}`);
+            // Calculate lightness
+            const lightnessSum = (maxVal + minVal) / 2;
+            const lightness = Math.round(lightnessSum / totAlpha / 255 * 100);
             console.log(`Lightness: ${lightness}`);
             // Add a class to the body based on the image lightness
-            if (lightness >= 95) {
+            if (lightness >= 90) {
                 body.classList.add("dark-logo-bg");
             }
-            if (lightness <= 10) {
+            if (lightness <= 18) {
                 body.classList.add("light-logo-bg");
             }
         };
@@ -258,6 +280,7 @@ document.addEventListener("DOMContentLoaded", function () {
             setTimeout(() => {
                 imgAvgColors(url);
             }, 0);
+            pageToggle();
         }
         else {
             // Insert upload icon
@@ -278,6 +301,7 @@ document.addEventListener("DOMContentLoaded", function () {
             setTimeout(() => {
                 imgAvgColors(url);
             }, 0);
+            pageToggle();
         }
         else if (file && !fileTypes.includes(file.type)) {
             // Input (in HTML) excludes undesired file types, but just in case
@@ -289,10 +313,10 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 1000);
         }
     });
-    // Make sure to scroll the page to X = 0 && Y = 0 on load 
     setTimeout(() => {
+        // Make sure to scroll the page to X = 0 && Y = 0 on load 
         topPageScroll();
+        // Add a body class (set page content to top -110vh)
+        body?.classList.add("page-ready");
     }, 50);
-    // Add a body class (set page content to top -110vh)
-    body?.classList.add("page-ready");
 });
