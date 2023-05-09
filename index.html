@@ -10,16 +10,20 @@
         <meta name="author" content="Uverit">
         
         <!-- Settings -->
-        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="minimum-scale=1.0, maximum-scale=5.0 width=device-width, initial-scale=1.0">
         <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <link rel="preload" href="int_resources/fonts/Quicksand-VariableFont_wghtbold.woff2" as="font" crossorigin>
+        <link rel="preload" href="int_resources/fonts/Roboto-Regular.woff2" as="font" crossorigin>
+
         <link rel="shortcut icon" href="int_resources/img/uverit-favicon-bbg.svg" type="image/x-icon">
-        <link rel="stylesheet" type="text/css" href="int_resources/css/general.css">
-        <link rel="stylesheet" type="text/css" href="int_resources/css/main.css">
+        <link rel="stylesheet" type="text/css" href="int_resources/css/general.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="int_resources/css/main.css" media="screen">
         
         <!-- Scripts -->
         <script src="int_resources/js/ScriptPackLT.js" defer></script>
         <script src="int_resources/js/index.js"></script>
-        <script src="int_resources/js/modal.js"></script>
+        <script src="int_resources/js/modal.js" defer></script>
         <script src="int_resources/js/sections.js" defer></script>
     </head>
         
@@ -80,7 +84,7 @@
             <div class="navigation">
                 <div class='nav-wrapper wrapper'>
 
-                    <a href='index.html' class='nav-logo uverit-logo'></a>
+                    <a href='index.html' class='nav-logo uverit-logo' rel="noreferrer" aria-label='Uverit Logo'></a>
 
                     <div class="nav-elements">
                         <div class="dark-mode-div">
@@ -136,7 +140,7 @@
                                 <p class="yl-slider-txt">black</p>
                             </div>
 
-                            <input type="range" class="yl-bg-slider" min="0" max="255" value="128" step="2.55">
+                            <input type="range" class="yl-bg-slider" min="0" max="255" value="128" step="2.55" aria-label="Range Slider for the background color">
 
                             <div class="yl-bg-reset">Reset</div>
                         </div>

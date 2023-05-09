@@ -186,9 +186,6 @@ document.addEventListener("DOMContentLoaded", function(){
             if (sectionPos.bottom !== 0 &&
             sectionPos.bottom < windowHeight * 0.15){
                 section.classList.remove("fade-in");
-                console.log(sectionPos.bottom)
-                console.log(windowHeight * 0.15)
-
             }
 
         });
@@ -210,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const uploadAgainBtn:HTMLElement | null = document.querySelector(".upload-again");
 
     // Temporary (delete later, I don't want to hide this element every time i refresh the page)
-    body!.classList.add("hide-modal");
+   // body!.classList.add("hide-modal");
 
     // Upload the logo again (show the modal after the first logo upload)
     uploadAgainBtn?.addEventListener("click", function(){
@@ -244,23 +241,6 @@ document.addEventListener("DOMContentLoaded", function(){
     const fileTypes = ['image/png', 'image/svg+xml'];
 
 
-
-
-
-    // TEMPORARY
-    insertLogoElements.forEach((logoElem) => {
-
-        // Create an image element
-        const logoImg:HTMLImageElement = document.createElement("img");
-        logoImg.src = "int_resources/img/uverit-favicon-bbg.svg";
-        logoImg.classList.add("insert-logo-img");
-
-        // Remove previous content from the logo elements
-        logoElem.innerHTML = "";
-
-        // Append logo to the elements
-        logoElem.appendChild(logoImg);
-    });
 
 
 
@@ -314,7 +294,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
             // total number of non-transparent pixels
             let totAlpha:number = 0;
-            console.time("loop")
+
             for (let i = 0; i < data.length; i += 4){
                 const r:number = data[i];
                 const g:number = data[i + 1];
@@ -333,7 +313,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     totAlpha++
                 }
             }
-            console.timeEnd("loop")
+
             // Calculate the average color
             const avgR:number = Math.round(totR / totAlpha);
             const avgG:number = Math.round(totG / totAlpha);
@@ -372,6 +352,7 @@ document.addEventListener("DOMContentLoaded", function(){
             const logoImg:HTMLImageElement = document.createElement("img");
             logoImg.src = url;
             logoImg.classList.add("insert-logo-img");
+            logoImg.setAttribute("alt", "Uploaded Logo");
 
             // Remove previous content from the logo elements
             logoElem.innerHTML = "";

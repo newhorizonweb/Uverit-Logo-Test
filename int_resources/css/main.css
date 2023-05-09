@@ -66,6 +66,7 @@
 
 .lm-logo{
     width:min(160px, 80%);
+    aspect-ratio:3.5/1;
 }
 
 .lm-logo svg{
@@ -96,6 +97,7 @@
 
 .drop-zone{
     width:100%;
+    min-height:min(275px, calc(100vw - (var(--size1) * 6)));
     margin:var(--size2) 0;
     display:flex;
     justify-content:center;
@@ -349,6 +351,10 @@
 /* Page Height */
 
 @media screen and (height <= 900px){
+    
+    .drop-zone{
+        min-height:20vh;
+    }
 
     .modal-icon{
         width:auto;
@@ -365,6 +371,10 @@
 
     .lm-logo{
         width:20vh;
+    }
+
+    .drop-zone{
+        min-height:100px;
     }
 
     .modal-icon{
@@ -411,6 +421,10 @@ screen and (height <= 540px){
 }
 
 @media screen and (height <= 540px){
+
+    .drop-zone{
+        min-height:80px;
+    }
     
     .modal-icon{
         height:80px;

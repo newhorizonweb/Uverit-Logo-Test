@@ -4,7 +4,7 @@
     /* Program Settings */
 
 // Program Version
-const programVersion:string = "v0.3.0";
+const programVersion:string = "v0.3.1";
 
 // Uverit URL
 const uveritLink:string = "https://www.fiverr.com/new_horizon_web";
@@ -40,7 +40,7 @@ const footerContent: string =
 
         "<div class='socials'>" +
             "<h6>Services on Fiverr</h6>" +
-            `<a href='${uveritLink}' class='social-btn' target='_blank' rel='noreferrer'>` +
+            `<a href='${uveritLink}' class='social-btn' target='_blank' rel='noreferrer' aria-label='Fiverr Icon (link)'>` +
                 fiIcon +
             "</a>"+
         "</div>" +

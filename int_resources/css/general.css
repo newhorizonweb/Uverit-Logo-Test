@@ -222,16 +222,19 @@ body{
 @font-face{
     src:url(../fonts/Quicksand-VariableFont_wghtbold.woff2);
     font-family:font1;
+    font-display:fallback;
 }
 
 @font-face{
     src:url(../fonts/Quicksand-SemiBold.ttf);
     font-family:font1-semibold;
+    font-display:fallback;
 }
 
 @font-face{
     src:url(../fonts/Roboto-Regular.woff2);
     font-family:font2;
+    font-display:fallback;
 }
 
 p, a, label{
@@ -1144,6 +1147,7 @@ main{
     
     font-family:font1-semibold;
     font-size:56px;
+    text-align:center;
     filter:drop-shadow(0 0 1px var(--shade2));
 }
 

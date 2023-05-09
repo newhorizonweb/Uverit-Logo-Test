@@ -1,6 +1,6 @@
 /* Program Settings */
 // Program Version
-const programVersion = "v0.3.0";
+const programVersion = "v0.3.1";
 // Uverit URL
 const uveritLink = "https://www.fiverr.com/new_horizon_web";
 /* Embedded SVG */
@@ -19,7 +19,7 @@ const footerContent = "<div class='wrapper'>" +
     "<div class='brand-logo uverit-logo' onclick='scrollToTop()'></div>" +
     "<div class='socials'>" +
     "<h6>Services on Fiverr</h6>" +
-    `<a href='${uveritLink}' class='social-btn' target='_blank' rel='noreferrer'>` +
+    `<a href='${uveritLink}' class='social-btn' target='_blank' rel='noreferrer' aria-label='Fiverr Icon (link)'>` +
     fiIcon +
     "</a>" +
     "</div>" +
