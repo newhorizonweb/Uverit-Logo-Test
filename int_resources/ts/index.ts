@@ -4,7 +4,7 @@
     /* Program Settings */
 
 // Program Version
-const programVersion:string = "v0.2.1";
+const programVersion:string = "v0.3.0";
 
 // Uverit URL
 const uveritLink:string = "https://www.fiverr.com/new_horizon_web";
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // Close the navbar
     window?.addEventListener("click", function(e){
-        const thisTarget:HTMLElement = (e.target as HTMLElement);
+        const thisTarget:HTMLElement = e.target as HTMLElement;
 
         if (!thisTarget.closest(".navbar") &&
         !thisTarget.closest(".burger-btn") ||
@@ -123,7 +123,19 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     });
 
+    document.addEventListener('keyup', function(e){
+        const eTarget:HTMLElement | null = e.target as HTMLElement;
 
+        if (eTarget &&
+        e.key === "Tab" &&
+        document.body.classList.contains("hide-modal") &&
+        eTarget!.classList.contains("nav-link-inner")){
+            eTarget.focus();
+            navigation?.classList.add("nav-open");
+        } else {
+            navigation?.classList.remove("nav-open");
+        }
+    });
 
         /* Navbar Elements + Scroll */
 
@@ -149,91 +161,12 @@ document.addEventListener("DOMContentLoaded", function(){
         // Create nav-link-inner element
         const navLinkInner:HTMLElement = document.createElement("p");
         navLinkInner.classList.add("nav-link-inner");
-        navLinkInner.innerHTML = stElemHeading.innerHTML;
+        navLinkInner.setAttribute("tabindex", "0");
+        navLinkInner.innerHTML = stElemHeading.querySelector("h3")!.innerHTML;
         navLink.appendChild(navLinkInner)
 
         // Append everything
         navbarInner?.appendChild(navLink);
     }
-
-    // Nav link elements
-    const navLinks:NodeListOf<Element> = document.querySelectorAll(".nav-link");
-
-    // Navigation height
-    const navHeight:number = navigation!.offsetHeight;
-
-    // Element scroll offset
-    // Leave a gap between the edge of the screen and the element (this value in px)
-    const elemScrollOffset:number = 50;
-
-    // On nav link click
-    navLinks.forEach((navLink) => {
-        navLink.addEventListener("click", function(e){
-            const navLinkData = this.getAttribute("data-link");
-
-            // Get the target element position
-            const scrolltoElem:HTMLElement | null = document.querySelector("."+navLinkData);
-            const sctolltoElemTop:number = scrolltoElem!.getBoundingClientRect().top;
-
-            // Scroll to the element
-            window.scroll({
-                top:sctolltoElemTop + window.pageYOffset - navHeight - elemScrollOffset,
-                behavior:"smooth"
-            });
-        });
-    });
-
-
-
-        /* Navbar Closest Page Element (highlight nav element) */
-
-    function closestScrollTarget(){
-
-        // Window height
-        const windowHeight:number = window.innerHeight;
-
-        // Window scrolled distance from top
-        const scrollPos:number = window.pageYOffset;
-
-        // For each page scrollto element
-        scrolltoElements.forEach(function(scrollElem){
-
-            // Page element distance from top
-            const thisPos:number = (scrollElem as HTMLElement).offsetTop - (windowHeight * 0.25);
-
-            // Page element data-link attribute (to match with the nav element)
-            const thisElem:string | null = scrollElem.getAttribute("data-link");
-
-            navLinks.forEach((navLink) => {
-                if (thisPos <= scrollPos){
-                
-                    if (navLink.getAttribute("data-link") === thisElem){
-                        navLink.classList.add("closest-elem");
-                    } else {
-                        navLink.classList.remove("closest-elem");
-                    }
-
-                } else if(navLink.getAttribute("data-link") === thisElem){
-                    navLink.classList.remove("closest-elem");
-                }
-            });
-        });
-    }
-
-    window.addEventListener("load", closestScrollTarget);
-    window.addEventListener("resize", closestScrollTarget);
-    
-    // Debounce the function on scroll
-    let canRun:boolean = true;
-    window.addEventListener("scroll", function(){
-        if (canRun){
-            canRun = false;
-
-            setTimeout(() => {
-                closestScrollTarget();
-                canRun = true;
-            }, 50);
-        }
-    });
 
 });

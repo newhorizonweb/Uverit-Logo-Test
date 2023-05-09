@@ -1,3 +1,29 @@
+/* Your Logo (bg color) */
+// Elements
+const stContentAll = document.querySelectorAll(".st-content");
+const bgColorSlider = document.querySelector(".yl-bg-slider");
+const colorSliderPercent = document.querySelector(".yl-slider-percent");
+const bgResetBtn = document.querySelector(".yl-bg-reset");
+bgColorSlider.addEventListener("input", function () {
+    const sliderVal = 255 - parseInt(this.value);
+    const sliderValPercent = Math.round(100 - (sliderVal / 255 * 100)) + "%";
+    const bgColor = `rgb(${sliderVal}, ${sliderVal}, ${sliderVal})`;
+    // change the percent value (0% = white, 100% = black)
+    colorSliderPercent.innerHTML = sliderValPercent;
+    // Add the color as a CSS variable
+    document.body.style.setProperty("--changed-bg-color", bgColor);
+    // Add the class to each scrollTo content element
+    stContentAll.forEach((stContent) => {
+        stContent?.classList.add("changed-bg-color");
+    });
+});
+bgResetBtn.addEventListener("click", function () {
+    bgColorSlider.value = "128";
+    colorSliderPercent.innerHTML = "";
+    stContentAll.forEach((stContent) => {
+        stContent?.classList.remove("changed-bg-color");
+    });
+});
 /* Balance Section */
 const balanceContent = document.querySelector(".balance .st-content");
 // Create the grid overlay element

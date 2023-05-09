@@ -22,10 +22,6 @@ function topPageScroll(){
 // Toggle between logo modal and page content
 function pageToggle(){
     document.addEventListener('keydown', function(e) {
-        if (e.key === "Enter") {
-            document.body.classList.toggle("hide-modal");
-            topPageScroll();
-        }
         if (e.key === "ArrowLeft") {
             document.body.classList.remove("hide-modal");
             topPageScroll();
@@ -43,12 +39,130 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 
-        /* Section fade-in/out */
+    //*--|*|--*\\_____// Navigation Scroll \\_____//*--|*|--*\\
+
+
+
+    // Navigation element
+    const navigation:HTMLElement | null = document.querySelector(".navigation");
+
+    // Nav link elements
+    const navLinks:NodeListOf<Element> = document.querySelectorAll(".nav-link");
+
+    // Section elements
+    const scrolltoElements:NodeListOf<Element> = document.querySelectorAll(".scrollto");
+
+    // Navigation height
+    const navHeight:number = navigation!.offsetHeight;
+
+    // Element scroll offset
+    // Leave a gap between the edge of the screen and the element (this value in px)
+    const elemScrollOffset:number = 50;
+
+    // Remove the ability for tab page navigation when the logo modal is displayed
+    document.addEventListener("keydown", (e) =>{
+        if (e.key === "Tab" &&
+        !document.body.classList.contains("hide-modal")){
+            e.preventDefault();
+        }
+    })
+
+    // Scroll to the element on nav link click (mouse or enter when focused)
+    function navLinkScroll(navLink){
+        const navLinkData = navLink.getAttribute("data-link");
+
+        // Get the target element position
+        const scrolltoElem:HTMLElement | null = document.querySelector("."+navLinkData);
+        const sctolltoElemTop:number = scrolltoElem!.getBoundingClientRect().top;
+
+        // Scroll to the element
+        window.scroll({
+            top:sctolltoElemTop + window.pageYOffset - navHeight - elemScrollOffset,
+            behavior:"smooth"
+        });
+    }
+
+    // Nav Link event listeners
+    function navLinkScrollOnClick(){
+        navLinks.forEach((navLink) => {
+
+            // On mouse click
+            navLink.addEventListener("click", () => {
+                navLinkScroll(navLink);
+            });
+
+            // On enter click when the element in on focus
+            navLink.addEventListener("keypress", (e: Event) => {
+                const eKey = (e as KeyboardEvent).key;
+                if (eKey === "Enter"){
+                navLinkScroll(navLink);
+                }
+            });
+        });
+    }
+
+
+
+            /* Navbar Closest Page Element (highlight nav element) */
+
+    function closestScrollTarget(){
+
+        // Window height
+        const windowHeight:number = window.innerHeight;
+
+        // Window scrolled distance from top
+        const scrollPos:number = window.pageYOffset;
+
+        // For each page scrollto element
+        scrolltoElements.forEach(function(scrollElem){
+
+            // Page element distance from top
+            const thisPos:number = (scrollElem as HTMLElement).offsetTop - (windowHeight * 0.25);
+
+            // Page element data-link attribute (to match with the nav element)
+            const thisElem:string | null = scrollElem.getAttribute("data-link");
+
+            navLinks.forEach((navLink) => {
+                if (thisPos <= scrollPos){
+                
+                    if (navLink.getAttribute("data-link") === thisElem){
+                        navLink.classList.add("closest-elem");
+                    } else {
+                        navLink.classList.remove("closest-elem");
+                    }
+
+                } else if(navLink.getAttribute("data-link") === thisElem){
+                    navLink.classList.remove("closest-elem");
+                }
+            });
+        });
+    }
+
+    window.addEventListener("load", closestScrollTarget);
+    window.addEventListener("resize", closestScrollTarget);
+    
+    // Debounce the function on scroll
+    let canRun:boolean = true;
+    window.addEventListener("scroll", function(){
+        if (canRun){
+            canRun = false;
+
+            setTimeout(() => {
+                closestScrollTarget();
+                canRun = true;
+            }, 50);
+        }
+    });
+
+
+
+    //*--|*|--*\\_____// Fade In Animation \\_____//*--|*|--*\\
+
+
 
     const sectionElements:NodeListOf<Element> = document.querySelectorAll(".scrollto");
 
     function sectionFade(){
-        
         sectionElements.forEach((section) => {
 
             // Section position
@@ -63,17 +177,21 @@ document.addEventListener("DOMContentLoaded", function(){
             // Section fade in when it's at the bottom of the page
             if (sectionPos.top < windowHeight * 0.9 - secHeadHeight){
                 section.classList.add("fade-in");
+
             } else {
                 section.classList.remove("fade-in");
             }
 
             // Section fade out when it's at the top of the page
-            if (sectionPos.bottom < windowHeight * 0.15){
+            if (sectionPos.bottom !== 0 &&
+            sectionPos.bottom < windowHeight * 0.15){
                 section.classList.remove("fade-in");
+                console.log(sectionPos.bottom)
+                console.log(windowHeight * 0.15)
+
             }
 
         });
-        
     }
 
     window.addEventListener("load", sectionFade);
@@ -81,14 +199,18 @@ document.addEventListener("DOMContentLoaded", function(){
     window.addEventListener("resize", sectionFade);
 
 
-    
+
+    //*--|*|--*\\_____// Logo Modal \\_____//*--|*|--*\\
+
+
+
         /* Upload Again Button */
         
     const body:HTMLElement | null = document.querySelector("body");
     const uploadAgainBtn:HTMLElement | null = document.querySelector(".upload-again");
 
     // Temporary (delete later, I don't want to hide this element every time i refresh the page)
-   // body!.classList.add("hide-modal");
+    body!.classList.add("hide-modal");
 
     // Upload the logo again (show the modal after the first logo upload)
     uploadAgainBtn?.addEventListener("click", function(){
@@ -146,7 +268,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 
-
+        /* Upload Functions */
 
     // Calculate the AVG image color
     function imgAvgColors(url){
@@ -307,6 +429,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
         }, 1500);
 
+        navLinkScrollOnClick();
+        closestScrollTarget();
     }
 
 
@@ -475,13 +599,18 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 
 
+
+    //*--|*|--*\\_____// Page Load Bug Fix \\_____//*--|*|--*\\
     
+
+
     setTimeout(() => {
         
         // Make sure to scroll the page to X = 0 && Y = 0 on load 
         topPageScroll();
 
         // Add a body class (set page content to top -110vh)
+        // Fixes a bug where the page content would be visible on load
         body?.classList.add("page-ready");
     }, 50);
 

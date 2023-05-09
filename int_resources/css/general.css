@@ -392,7 +392,7 @@ nav{
     top:-100%;
     left:0;
     
-    transition:all 0.5s, width 0.15s, height 0s;
+    transition:all 0.15s, top 0.5s, width 0.15s, height 0s;
     z-index:9999;
 }
 
@@ -671,7 +671,8 @@ nav{
     border-right-color:var(--color1);
 }
 
-.nav-link-inner:hover{
+.nav-link-inner:hover,
+.nav-link-inner:focus{
     margin:0;
     padding:8px 12px;
 
@@ -1088,7 +1089,6 @@ main{
 }
 
 .main-wrapper{
-    min-height:350vh;
     margin:var(--size1) auto;
     padding:0;
     position:relative;

@@ -42,6 +42,8 @@ Every section represents a part of the logo design as a separate logo. This proc
 
 This section doesn't make any changes to the logo. The basic logo form is used as a reference for the other sections.
 
+The user can change the background color for better visibility (grayscale).
+
 ### Balance
 
 This section displays a grid on top of the centered logo. It shows the balance, symmetry. The user can see if the logo doesn't draw attention to certain areas more than others.
