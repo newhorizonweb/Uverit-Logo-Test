@@ -70,6 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     }
+    navLinkScrollOnClick();
     /* Navbar Closest Page Element (highlight nav element) */
     function closestScrollTarget() {
         // Window height
@@ -142,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const body = document.querySelector("body");
     const uploadAgainBtn = document.querySelector(".upload-again");
     // Temporary (delete later, I don't want to hide this element every time i refresh the page)
-    // body!.classList.add("hide-modal");
+    //    body!.classList.add("hide-modal");
     // Upload the logo again (show the modal after the first logo upload)
     uploadAgainBtn?.addEventListener("click", function () {
         // Scroll to the top of the page (async)
@@ -163,6 +164,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const insertLogoElements = document.querySelectorAll(".insert-logo");
     // Accepted file types
     const fileTypes = ['image/png', 'image/svg+xml'];
+    // TEMPORARY 
+    insertLogoElements.forEach((logoElem) => {
+        // Create an image element 
+        const logoImg = document.createElement("img");
+        logoImg.src = "int_resources/img/uverit-favicon-bbg.svg";
+        logoImg.classList.add("insert-logo-img");
+        // Remove previous content from the logo elements 
+        logoElem.innerHTML = "";
+        // Append logo to the elements
+        logoElem.appendChild(logoImg);
+    });
     /* Upload Functions */
     // Calculate the AVG image color
     function imgAvgColors(url) {
@@ -232,6 +244,15 @@ document.addEventListener("DOMContentLoaded", function () {
             if (lightness <= 18) {
                 body.classList.add("light-logo-bg");
             }
+        };
+    }
+    // Image aspect ratio
+    function imgAspectRatio() {
+        const scalabilityRatio = document.querySelector(".si-change .st-content");
+        const logoImg = document.querySelector(".si-change .insert-logo-img");
+        logoImg.onload = function () {
+            const aspectRatio = logoImg.width / logoImg.height;
+            scalabilityRatio.style.aspectRatio = aspectRatio + "/1";
         };
     }
     // Insert logo function
@@ -352,6 +373,8 @@ document.addEventListener("DOMContentLoaded", function () {
             insertLogo(url);
             // Successful Upload
             successfulUpload();
+            // Calculate the image aspect ratio
+            imgAspectRatio();
             // Calculate the AVG color values (async)
             setTimeout(() => {
                 imgAvgColors(url);
@@ -373,6 +396,8 @@ document.addEventListener("DOMContentLoaded", function () {
             insertLogo(url);
             // Successful Upload
             successfulUpload();
+            // Calculate the image aspect ratio
+            imgAspectRatio();
             // Calculate the AVG color values (async)
             setTimeout(() => {
                 imgAvgColors(url);

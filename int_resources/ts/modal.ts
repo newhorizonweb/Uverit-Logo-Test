@@ -101,6 +101,8 @@ document.addEventListener("DOMContentLoaded", function(){
         });
     }
 
+    navLinkScrollOnClick();
+
 
 
             /* Navbar Closest Page Element (highlight nav element) */
@@ -207,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const uploadAgainBtn:HTMLElement | null = document.querySelector(".upload-again");
 
     // Temporary (delete later, I don't want to hide this element every time i refresh the page)
-   // body!.classList.add("hide-modal");
+//    body!.classList.add("hide-modal");
 
     // Upload the logo again (show the modal after the first logo upload)
     uploadAgainBtn?.addEventListener("click", function(){
@@ -243,7 +245,17 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 
-
+                // TEMPORARY 
+                insertLogoElements.forEach((logoElem) => { 
+                    // Create an image element 
+                    const logoImg:HTMLImageElement = document.createElement("img"); 
+                    logoImg.src = "int_resources/img/uverit-favicon-bbg.svg"; 
+                    logoImg.classList.add("insert-logo-img"); 
+                    // Remove previous content from the logo elements 
+                    logoElem.innerHTML = ""; 
+                    // Append logo to the elements
+                    logoElem.appendChild(logoImg); 
+                });
 
 
 
@@ -344,6 +356,19 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     }
 
+    // Image aspect ratio
+    function imgAspectRatio(){
+
+        const scalabilityRatio:HTMLElement | null = document.querySelector(".si-change .st-content");
+        const logoImg:HTMLImageElement | null = document.querySelector(".si-change .insert-logo-img");
+
+        logoImg!.onload = function(){
+            const aspectRatio:number = logoImg!.width / logoImg!.height;
+            scalabilityRatio!.style.aspectRatio = aspectRatio+"/1";
+        }
+
+    }
+
     // Insert logo function
     function insertLogo(url){
         insertLogoElements.forEach((logoElem) => {
@@ -397,14 +422,11 @@ document.addEventListener("DOMContentLoaded", function(){
                 clearInterval(intervalId);
             }, 700);
 
-
             // Insert the upload icon and remove the classes
             setTimeout(function(){
                 insertUploadIcon();
-                
                 dropZone?.classList.remove("modal-icon-active");
                 dropZone?.classList.remove("modal-drop");
-                
                 goToPageBtn?.classList.add("uploaded-logo");
             }, 1000);
 
@@ -523,6 +545,9 @@ document.addEventListener("DOMContentLoaded", function(){
             // Successful Upload
             successfulUpload();
 
+            // Calculate the image aspect ratio
+            imgAspectRatio();
+
             // Calculate the AVG color values (async)
             setTimeout(() => {
                 imgAvgColors(url);
@@ -556,6 +581,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
             // Successful Upload
             successfulUpload();
+
+            // Calculate the image aspect ratio
+            imgAspectRatio();
 
             // Calculate the AVG color values (async)
             setTimeout(() => {

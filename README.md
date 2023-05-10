@@ -46,9 +46,17 @@ The user can change the background color for better visibility (grayscale).
 
 ### Balance
 
-This section displays a grid on top of the centered logo. It shows the balance, symmetry. The user can see if the logo doesn't draw attention to certain areas more than others.
+This section displays a grid on top of the centered logo. It shows the balance and symmetry. The user can see if the logo doesn't draw attention to certain areas more than others.
 
 Slightly thicker vertical and horizontal lines in the middle help to locate the center.
 
 ### Scalability
 
+This section consists of 2 parts.
+
+The first one is a simple logo display in different sizes (small, medium, large).
+It allows for a quick look at some perception differences caused by a different size.
+
+In the second part, the user can manually adjust the logo size (width) using a range slider.
+The minimum value is set to 24px and the max value is automatically adjusted based on the logo aspect ratio, container width and max container height (so the user doesn't have to scroll 4 screen heights when uploading a vertical logo - edge case, but worth covering).
+When the screen is resized, the logo width is adjusted automatically.
