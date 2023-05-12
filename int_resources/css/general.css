@@ -838,7 +838,7 @@ footer .wrapper{
     box-shadow:var(--box-shadow1) var(--wrapperColor1), var(--box-shadow2) var(--wrapperColor1);
     border-radius:var(--mainRadius1);
     transition:0.15s;
-    z-index:50;
+    z-index:1200;
 }
 
         /* Footer - brand */

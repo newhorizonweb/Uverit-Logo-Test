@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const uploadAgainBtn:HTMLElement | null = document.querySelector(".upload-again");
 
     // Temporary (delete later, I don't want to hide this element every time i refresh the page)
-//    body!.classList.add("hide-modal");
+    body!.classList.add("hide-modal");
 
     // Upload the logo again (show the modal after the first logo upload)
     uploadAgainBtn?.addEventListener("click", function(){
@@ -239,6 +239,8 @@ document.addEventListener("DOMContentLoaded", function(){
     // Insert the image into these elements
     const insertLogoElements:NodeListOf<Element> = document.querySelectorAll(".insert-logo");
 
+    const insertcoloredLogo:HTMLInputElement | null = document.querySelector(".insert-colored-logo");
+
     // Accepted file types
     const fileTypes = ['image/png', 'image/svg+xml'];
 
@@ -261,6 +263,48 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
         /* Upload Functions */
+        
+    // Change logo color to the average color
+    function avgLogoColor(url:string, avgR:number, avgG:number, avgB:number){
+
+        const canvas:HTMLCanvasElement = document.createElement('canvas');
+        const ctx:CanvasRenderingContext2D | null = canvas.getContext('2d', {willReadFrequently:true});
+        const img:HTMLImageElement = document.createElement("img");
+        img.src = url;
+
+        img.addEventListener('load', function(){
+
+            // Draw the logo on the canvas element
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx!.drawImage(img, 0, 0);
+
+            // Change the image color
+            const imageData:ImageData = ctx!.getImageData(0, 0, canvas.width, canvas.height);
+            const data:Uint8ClampedArray = imageData.data;
+
+            // Change the pixel colors of the image to the average ones
+            for (let i = 0; i < data.length; i += 4){
+                data[i] = avgR;
+                data[i + 1] = avgG;
+                data[i + 2] = avgB;
+            }
+
+            ctx!.putImageData(imageData, 0, 0);
+
+            // Convert canvas to data URL and set as the image source & attributes
+            const dataUrl:string = canvas.toDataURL("image/png");
+            img.src = dataUrl;
+            img.classList.add("insert-logo-img");
+            img.setAttribute("alt", "Uploaded Logo");
+
+            // Empty the element and insert the avg color logo
+            insertcoloredLogo!.innerHTML = "";
+            insertcoloredLogo!.appendChild(img);
+
+        }, {once: true});
+        
+    }
 
     // Calculate the AVG image color
     function imgAvgColors(url){
@@ -273,7 +317,7 @@ document.addEventListener("DOMContentLoaded", function(){
         img.src = url;
 
         // When the image is loaded
-        img.onload = function(){
+        img.addEventListener('load', function(){
 
             // Image ratio
             const imgRatio:number = img.width / img.height;
@@ -326,23 +370,32 @@ document.addEventListener("DOMContentLoaded", function(){
                 }
             }
 
+
+
             // Calculate the average color
             const avgR:number = Math.round(totR / totAlpha);
             const avgG:number = Math.round(totG / totAlpha);
             const avgB:number = Math.round(totB / totAlpha);
-
             const avgColor:string = `rgb(${avgR}, ${avgG}, ${avgB})`;
+            document.body.style.setProperty("--logo-avg-color-txt", "'"+avgColor+"'");
 
-            console.log(avgColor)
+            // Make an image using the avg color
+            avgLogoColor(url, avgR, avgG, avgB);
+
+
 
             // Calculate transparency
             const transparency:string = 100 - Math.round(totA / (data.length / 4) / 255 * 100) + "%";
-            console.log(`Transparency: ${transparency}`)
+            document.body.style.setProperty("--logo-transparency", transparency);
+            document.body.style.setProperty("--logo-transparency-txt", "'"+transparency+"'");
+
+
 
             // Calculate lightness
             const lightnessSum:number = (maxVal + minVal) / 2;
             const lightness:number = Math.round(lightnessSum / totAlpha / 255 * 100);
-            console.log(`Lightness: ${lightness}`);
+            document.body.style.setProperty("--logo-lightness", lightness+"%");
+            document.body.style.setProperty("--logo-lightness-txt", "'"+lightness+"%'");
 
             // Add a class to the body based on the image lightness
             if (lightness >= 90){
@@ -353,7 +406,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 body!.classList.add("light-logo-bg");
             }
 
-        }
+        }, {once: true});
     }
 
     // Image aspect ratio

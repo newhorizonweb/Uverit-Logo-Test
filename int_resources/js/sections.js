@@ -102,3 +102,56 @@ document.addEventListener("DOMContentLoaded", function () {
     const observer = new MutationObserver(callback);
     observer.observe(logoParent, config);
 });
+/* Background Color */
+// Section (element that changes the bg color)
+const bgColorSection = document.querySelector(".bgc-section");
+// Color items (buttons)
+const colorItems = document.querySelectorAll(".bgc-item");
+// Reset color button
+const bgColorReset = document.querySelector(".bgc-reset");
+// Color picker (user picks the color)
+const bgColorPicker = document.querySelector("#bgc-input");
+function rgbToHex(rgb) {
+    const rgbArray = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    let hex = "#";
+    if (!rgbArray) {
+        return rgb;
+    }
+    for (var i = 1; i <= 3; i++) {
+        hex += ("0" + parseInt(rgbArray[i], 10).toString(16)).slice(-2);
+    }
+    return hex;
+}
+// Change the bg color based on the clicked color item
+colorItems.forEach(function (colorItem) {
+    colorItem.addEventListener("click", function () {
+        // Get the computed style
+        const cItem = colorItem;
+        const getStyle = window.getComputedStyle(cItem);
+        // Get the bg color
+        const colorItemColor = getStyle.backgroundColor;
+        // Add the changed section color class
+        bgColorSection?.classList.add("changed-section-color");
+        // Change the bg color for items with that class (css variable)
+        document.body.style.setProperty("--changed-section-color", colorItemColor);
+        // Get the color in HEX and set the color picker value
+        // So if the user clicks on the color item first, the color picker will get that color (so the user can change that color instead of some random one)
+        const hexcolor = rgbToHex(colorItemColor);
+        bgColorPicker.value = hexcolor;
+    });
+});
+// Change the bg color from the color picker
+bgColorPicker?.addEventListener("input", function () {
+    // Get the color picker value
+    const colorPickerVal = bgColorPicker.value;
+    // Add the changed section color class
+    bgColorSection?.classList.add("changed-section-color");
+    // Change the bg color for items with that class (css variable)
+    document.body.style.setProperty("--changed-section-color", colorPickerVal);
+});
+// Reset the section bg color
+bgColorReset?.addEventListener("click", function () {
+    bgColorSection?.classList.remove("changed-section-color");
+    bgColorPicker.value = "#FFFFFF";
+});
+/* Average Values */
