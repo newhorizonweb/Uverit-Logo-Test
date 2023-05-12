@@ -595,7 +595,7 @@ screen and (height <= 540px){
     background-color:var(--shade6);
 }
 
-.insert-logo{
+.logo-style{
     width:100%;
     height:400px;
     display:flex;
@@ -613,7 +613,7 @@ screen and (height <= 540px){
 
 @media screen and (width <= 540px){
 
-    .insert-logo{
+    .logo-style{
         height:auto;
         max-height:300px;
         aspect-ratio:4/3;
@@ -824,19 +824,19 @@ screen and (height <= 540px){
     transition:all 0s, left 0.4s;
 }
 
-.si-item .insert-logo{
+.si-item .logo-style{
     height:auto;
 }
 
-.si-item:nth-of-type(1) .insert-logo{
+.si-item:nth-of-type(1) .logo-style{
     width:60px;
     height:60px;
 }
-.si-item:nth-of-type(2) .insert-logo{
+.si-item:nth-of-type(2) .logo-style{
     width:125px;
     height:125px;
 }
-.si-item:nth-of-type(3) .insert-logo{
+.si-item:nth-of-type(3) .logo-style{
     width:200px;
     height:200px;
 }
@@ -878,7 +878,7 @@ screen and (height <= 540px){
         flex:100%;
     }
 
-    .si-item .insert-logo{
+    .si-item .logo-style{
         aspect-ratio:auto;
     }
 
@@ -886,15 +886,15 @@ screen and (height <= 540px){
 
 @media screen and (width <= 320px){
 
-    .si-item:nth-of-type(1) .insert-logo{
+    .si-item:nth-of-type(1) .logo-style{
         width:50px;
         height:50px;
     }
-    .si-item:nth-of-type(2) .insert-logo{
+    .si-item:nth-of-type(2) .logo-style{
         width:100px;
         height:100px;
     }
-    .si-item:nth-of-type(3) .insert-logo{
+    .si-item:nth-of-type(3) .logo-style{
         width:150px;
         height:150px;
     }
@@ -1299,7 +1299,7 @@ screen and (height <= 540px){
     transition:all 0s, left 0.4s;
 }
 
-.ts-item .insert-logo{
+.ts-item .logo-style{
     height:auto;
     max-height:200px;
     width:100%;
@@ -1326,7 +1326,7 @@ screen and (height <= 540px){
         flex:40%;
     }
 
-    .ts-item .insert-logo{
+    .ts-item .logo-style{
         max-width:170px;
         max-height:160px;
     }
@@ -1339,7 +1339,7 @@ screen and (height <= 540px){
         flex:100%;
     }
 
-    .ts-item .insert-logo{
+    .ts-item .logo-style{
         max-width:none;
         max-height:160px;
     }
@@ -1348,7 +1348,7 @@ screen and (height <= 540px){
 
 @media screen and (width <= 440px){
 
-    .ts-item .insert-logo{
+    .ts-item .logo-style{
         max-height:140px;
     }
 
@@ -1358,13 +1358,13 @@ screen and (height <= 540px){
 
     /* Blur */
 
-.blur .ts-item:nth-of-type(1) .insert-logo{
+.blur .ts-item:nth-of-type(1) .logo-style{
     filter:blur(2px);
 }
-.blur .ts-item:nth-of-type(2) .insert-logo{
+.blur .ts-item:nth-of-type(2) .logo-style{
     filter:blur(5px);
 }
-.blur .ts-item:nth-of-type(3) .insert-logo{
+.blur .ts-item:nth-of-type(3) .logo-style{
     filter:blur(8px);
 }
 
@@ -1379,13 +1379,13 @@ screen and (height <= 540px){
     background-color:#000 !important;
 }
 
-.monochrome .ts-item:nth-of-type(1) .insert-logo{
+.monochrome .ts-item:nth-of-type(1) .logo-style{
     filter:grayscale(1);
 }
-.monochrome .ts-item:nth-of-type(2) .insert-logo{
+.monochrome .ts-item:nth-of-type(2) .logo-style{
     filter:brightness(0);
 }
-.monochrome .ts-item:nth-of-type(3) .insert-logo{
+.monochrome .ts-item:nth-of-type(3) .logo-style{
     filter:brightness(0) invert(1);
 }
 
@@ -1498,5 +1498,16 @@ screen and (height <= 540px){
 .avg-transparency-txt:after{
     content:var(--logo-transparency-txt);
 }
+
+
+
+
+
+
+
+
+
+
+
 
 

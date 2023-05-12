@@ -203,17 +203,22 @@ body{
     width:100%;
     position:absolute;
     top:0;
-    display:none;
-    transition:0.5s;
 }
 
 .page-ready .page-content{
     top:110vh;
-    display:block;
 }
 
 .hide-modal .page-content{
     top:0;
+}
+
+.page-content-transition .page-content{
+    transition:0.5s;
+}
+
+body:not(.page-ready) .page-content *:not(.main-bg-grad, .main-background){
+    display:none;
 }
 
         /* Fonts */
@@ -1072,9 +1077,9 @@ footer .wrapper{
     /* Image has better perf. than CSS gradient */
     background:linear-gradient(to right, 
         var(--color1a) calc(var(--gradBgWidth) * 1),
-        var(--color1) calc(var(--gradBgWidth) * 3),
+        var(--color1)  calc(var(--gradBgWidth) * 3),
         var(--color3a) calc(var(--gradBgWidth) * 5),
-        var(--color2) calc(var(--gradBgWidth) * 7),
+        var(--color2)  calc(var(--gradBgWidth) * 7),
         var(--color2a) calc(var(--gradBgWidth) * 9),
         var(--color1a) calc(var(--gradBgWidth) * 11));
 

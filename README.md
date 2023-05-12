@@ -133,3 +133,8 @@ For example, a logo that is a word with transparent background will take the pix
 If the logo has semi-transparent parts, they will be calculated with the exact same transparency. So if a logo is a square set to 45% opacity (no borders, background, etc. - all of the canvas is the square), the transparency will be 55%.
 
 All of the values are an appriximation, since the logo is scaled down to improve performance. However, the differences are rather insignificant (<3%), so the displayed result is pretty accurate.
+
+### Pixelated
+
+There are 3 versions of the logo, each with a different level of pixelation.
+It simulates how the logo might look on a low-resolution device or when scaled incorrectly.

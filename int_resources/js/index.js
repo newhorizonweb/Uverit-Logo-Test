@@ -1,6 +1,6 @@
 /* Program Settings */
 // Program Version
-const programVersion = "v0.5.0";
+const programVersion = "v0.6.0";
 // Uverit URL
 const uveritLink = "https://www.fiverr.com/new_horizon_web";
 /* Embedded SVG */

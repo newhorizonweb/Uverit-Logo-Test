@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const uploadAgainBtn:HTMLElement | null = document.querySelector(".upload-again");
 
     // Temporary (delete later, I don't want to hide this element every time i refresh the page)
-    body!.classList.add("hide-modal");
+    //body!.classList.add("hide-modal");
 
     // Upload the logo again (show the modal after the first logo upload)
     uploadAgainBtn?.addEventListener("click", function(){
@@ -239,7 +239,8 @@ document.addEventListener("DOMContentLoaded", function(){
     // Insert the image into these elements
     const insertLogoElements:NodeListOf<Element> = document.querySelectorAll(".insert-logo");
 
-    const insertcoloredLogo:HTMLInputElement | null = document.querySelector(".insert-colored-logo");
+    // Insert the average-color logo element
+    const insertColoredLogo:HTMLInputElement | null = document.querySelector(".insert-colored-logo");
 
     // Accepted file types
     const fileTypes = ['image/png', 'image/svg+xml'];
@@ -299,15 +300,15 @@ document.addEventListener("DOMContentLoaded", function(){
             img.setAttribute("alt", "Uploaded Logo");
 
             // Empty the element and insert the avg color logo
-            insertcoloredLogo!.innerHTML = "";
-            insertcoloredLogo!.appendChild(img);
+            insertColoredLogo!.innerHTML = "";
+            insertColoredLogo!.appendChild(img);
 
         }, {once: true});
         
     }
 
     // Calculate the AVG image color
-    function imgAvgColors(url){
+    function imgAvgColors(url:string){
 
         // Scaled down image width (in px) - improve performance
         const imgScaledWidth:number = 200;
@@ -370,8 +371,6 @@ document.addEventListener("DOMContentLoaded", function(){
                 }
             }
 
-
-
             // Calculate the average color
             const avgR:number = Math.round(totR / totAlpha);
             const avgG:number = Math.round(totG / totAlpha);
@@ -407,6 +406,68 @@ document.addEventListener("DOMContentLoaded", function(){
             }
 
         }, {once: true});
+    }
+
+    // Pixelate the logo
+    function pixelateLogo(url:string){
+
+        const logoWidths:number[] = [
+            128,
+            64,
+            32
+        ];
+
+        // Create 3 pixelated logo versions
+        for (let i = 0; i < logoWidths.length; i++){
+
+            const img:HTMLImageElement = document.createElement("img");
+            img.src = url;
+    
+            img.addEventListener('load', function(){
+    
+                // Create a canvas element
+                const canvas:HTMLCanvasElement = document.createElement('canvas');
+                canvas.width = logoWidths[i];
+                canvas.height = Math.round((img.height / img.width) * logoWidths[i]);
+    
+                // Draw the image on the canvas 
+                const ctx:CanvasRenderingContext2D | null = canvas.getContext('2d', {willReadFrequently:true});
+                ctx!.imageSmoothingEnabled = false; // Disable anti-aliasing
+                ctx!.drawImage(img, 0, 0, canvas.width, canvas.height);
+    
+    
+    
+                // Create a second canvas
+                // The pixels will be sharp, no blurred edges
+                const tmpCanvas:HTMLCanvasElement = document.createElement("canvas");
+                const tmpCtx:CanvasRenderingContext2D | null = tmpCanvas.getContext("2d");
+                tmpCanvas.width = img.width;
+                tmpCanvas.height = img.height;
+    
+                // Draw the image on the second canvas element
+                tmpCtx!.imageSmoothingEnabled = false; // Disable anti-aliasing
+                tmpCtx!.drawImage(canvas, 0, 0, img.width, img.height);
+    
+    
+    
+                // Convert canvas to data URL and set as the image source & attributes
+                img.src = tmpCanvas.toDataURL();
+                img.classList.add("insert-logo-img");
+                img.setAttribute("alt", "Uploaded Logo");
+
+                // Pixelated logo parent element
+                const pixelatedLogoParent:HTMLElement | null = document.querySelector(".insert-pixel-logo"+(i+1));
+    
+                // Empty the element and insert the avg color logo
+                pixelatedLogoParent!.innerHTML = "";
+    
+                // Append the canvas to the document
+                pixelatedLogoParent!.appendChild(img);
+    
+            }, {once: true});
+
+        }
+        
     }
 
     // Image aspect ratio
@@ -464,6 +525,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
             // Hide the logo upload modal
             body!.classList.add("hide-modal");
+
+            // Add a class for page-content transition 
+            body!.classList.add("page-content-transition");
             
             // Fade in the sections
             // Call the function multiple times to make sure every section gets a chance to fade in
@@ -572,8 +636,34 @@ document.addEventListener("DOMContentLoaded", function(){
 
     dropZone?.addEventListener('dragleave', function(e){
         dropZone?.classList.remove("modal-drop");
-
     });
+
+
+
+    // Functions called on logo upload
+    function uploadFunctions(url){
+
+        // Insert images into the page elements
+        insertLogo(url);
+
+        // Successful Upload
+        successfulUpload();
+
+        // Calculate the image aspect ratio
+        imgAspectRatio();
+
+        // Async
+        setTimeout(() => {
+            // Calculate the AVG color values
+            imgAvgColors(url);
+
+            // Insert pixelated logos
+            pixelateLogo(url);
+        }, 0);
+
+        // Page toggle
+        pageToggle();
+    }
 
 
 
@@ -592,21 +682,7 @@ document.addEventListener("DOMContentLoaded", function(){
             // Create an URL object
             const url:string = URL.createObjectURL(file);
 
-            // Insert images into the page elements
-            insertLogo(url);
-
-            // Successful Upload
-            successfulUpload();
-
-            // Calculate the image aspect ratio
-            imgAspectRatio();
-
-            // Calculate the AVG color values (async)
-            setTimeout(() => {
-                imgAvgColors(url);
-            }, 0);
-
-            pageToggle();
+            uploadFunctions(url);
 
         } else {
 
@@ -629,21 +705,7 @@ document.addEventListener("DOMContentLoaded", function(){
             // Create an URL object
             const url:string = URL.createObjectURL(file);
 
-            // Insert images into the page elements
-            insertLogo(url);
-
-            // Successful Upload
-            successfulUpload();
-
-            // Calculate the image aspect ratio
-            imgAspectRatio();
-
-            // Calculate the AVG color values (async)
-            setTimeout(() => {
-                imgAvgColors(url);
-            }, 0);
-
-            pageToggle();
+            uploadFunctions(url);
 
         } else if (file && !fileTypes.includes(file.type)){
             // Input (in HTML) excludes undesired file types, but just in case
@@ -674,7 +736,7 @@ document.addEventListener("DOMContentLoaded", function(){
         // Add a body class (set page content to top -110vh)
         // Fixes a bug where the page content would be visible on load
         body?.classList.add("page-ready");
-    }, 50);
+    }, 100);
 
 });
 
