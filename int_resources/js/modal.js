@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // For each page scrollto element
         scrolltoElements.forEach(function (scrollElem) {
             // Page element distance from top
-            const thisPos = scrollElem.offsetTop - (windowHeight * 0.25);
+            const thisPos = scrollElem.offsetTop - (windowHeight * 0.3);
             // Page element data-link attribute (to match with the nav element)
             const thisElem = scrollElem.getAttribute("data-link");
             navLinks.forEach((navLink) => {
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const body = document.querySelector("body");
     const uploadAgainBtn = document.querySelector(".upload-again");
     // Temporary (delete later, I don't want to hide this element every time i refresh the page)
-    //body!.classList.add("hide-modal");
+    body.classList.add("hide-modal");
     // Upload the logo again (show the modal after the first logo upload)
     uploadAgainBtn?.addEventListener("click", function () {
         // Scroll to the top of the page (async)
@@ -322,12 +322,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 pixelatedLogoParent.innerHTML = "";
                 // Append the canvas to the document
                 pixelatedLogoParent.appendChild(img);
+                // Insert the pixelated logo dimensions (Xpx x Xpx)
+                document.querySelector(".pixel-txt" + (i + 1)).innerHTML = `${canvas.width}px x ${canvas.height}px`;
             }, { once: true });
         }
     }
     // Image aspect ratio
     function imgAspectRatio() {
-        const scalabilityRatio = document.querySelector(".si-change .st-content");
+        const scalabilityRatio = document.querySelector(".si-change .si-insert-logo");
         const logoImg = document.querySelector(".si-change .insert-logo-img");
         logoImg.onload = function () {
             const aspectRatio = logoImg.width / logoImg.height;

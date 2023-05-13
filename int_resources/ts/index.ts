@@ -4,7 +4,7 @@
     /* Program Settings */
 
 // Program Version
-const programVersion:string = "v0.6.0";
+const programVersion:string = "v0.7.0";
 
 // Uverit URL
 const uveritLink:string = "https://www.fiverr.com/new_horizon_web";
@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function(){
         const navLinkInner:HTMLElement = document.createElement("p");
         navLinkInner.classList.add("nav-link-inner");
         navLinkInner.setAttribute("tabindex", "0");
-        navLinkInner.innerHTML = stElemHeading.querySelector("h3")!.innerHTML;
+        navLinkInner.innerHTML = stElemHeading.querySelector(".mh-title")!.innerHTML;
         navLink.appendChild(navLinkInner)
 
         // Append everything

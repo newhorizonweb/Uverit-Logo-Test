@@ -526,14 +526,6 @@ screen and (height <= 540px){
     z-index:100;
 }
 
-.st-title{
-    color:var(--txt-faded2);
-    font-size:52px;
-    font-family:font1-semibold;
-    text-align:center;
-    text-transform:capitalize;
-}
-
 .st-subtitle{
     width:100%;
     margin-top:4px;
@@ -921,6 +913,10 @@ screen and (height <= 540px){
 .si-change .st-content{
     height:auto;
     max-height:500px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .si-insert-logo{
@@ -1476,6 +1472,7 @@ screen and (height <= 540px){
     border-radius:var(--mainRadius1);
     transition:0.15s;
 }
+
 .dark-mode .average-val .ts-item:nth-of-type(3) .ts-logo:after{
     filter:invert(1);
 }
@@ -1501,13 +1498,373 @@ screen and (height <= 540px){
 
 
 
+    /* App Icons */
 
+.app-icons{
+    --phone-bezel:12px;
+}
 
+.ai-inner{
+    width:100%;
+    padding:0 var(--size1);
+    box-sizing:border-box;
+    
+    display:flex;
+    gap:var(--size1);
+}
 
+.ai-inner .section-content{
+    margin:0;
+}
 
+        /* App Icons - Phone */
 
+.ai-phone-div{
+    width:min(320px, 100%);
+    position:relative;
+    display:flex;
+}
 
+.ai-phone-div:before{
+    content:"";
+    width:calc(100% - var(--phone-bezel));
+    height:calc(100% - var(--phone-bezel));
 
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    border-radius:40px;
 
+    background-image:linear-gradient(to top, 
+        rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0) 30%),
+    linear-gradient(to bottom, 
+        rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0) 15%),
+    linear-gradient(to bottom right,
+        var(--color1), var(--color1a), var(--color2a));
+}
 
+.ai-phone-div2:before{
+    background-image:linear-gradient(to top, 
+        rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0) 30%),
+    linear-gradient(to bottom, 
+        rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0) 15%),
+    linear-gradient(to bottom right,
+        var(--color2a), var(--color1), var(--color2));
+}
 
+.ai-phone{
+    width:100%;
+    position:relative;
+    z-index:10;
+}
+
+.ai-phone :is(path, rect){
+    fill:var(--txt1);
+    transition:0.15s;
+}
+
+.ai-phone-layout{
+    width:100%;
+    height:100%;
+    padding:var(--phone-bezel) calc(var(--phone-bezel) * 3);
+    box-sizing:border-box;
+
+    position:absolute;
+    top:0;
+    left:0;
+
+    display:flex;
+    flex-direction:column;
+    z-index:100;
+}
+
+.ai-phone-div2 .ai-phone-layout{
+    padding:var(--phone-bezel) calc(var(--phone-bezel) * 3) calc(var(--phone-bezel) * 3);
+}
+
+            /* App Icons - Top Bar */
+
+.ai-top-bar{
+    width:100%;
+    margin-top:8px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.ai-time-bar{
+    color:#FFF;
+    font-size:14px;
+}
+
+.ai-battery-icon{
+    width:24px;
+}
+
+            /* App Icons - Top */
+
+.ai-phone-top{
+    margin:var(--size1) 0;
+    display:flex;
+    flex-direction:column;
+}
+
+.ai-phone-div2 .ai-phone-top{
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:stretch;
+}
+         
+.ai-time{
+    color:#FFF;
+    font-size:36px;
+    line-height:1.2;
+}
+         
+.ai-phone-div1 .ai-time{
+    font-family:font1;
+    font-size:52px;
+    text-align:center;
+}
+
+.ai-day{
+    color:#EEE;
+    font-size:14px;
+}
+
+.ai-phone-div1 .ai-day{
+    font-size:16px;
+    text-align:center;
+}
+
+.ai-weather{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:flex-end;
+}
+
+.ai-weather-icon{
+    width:38px;
+}
+
+.ai-weather-txt{
+    position:relative;
+    font-size:14px;
+    color:#EEE;
+}
+
+            /* App Icons - Icons */
+
+.ai-phone-icons{
+    width:100%;
+    margin-top:auto;
+    margin-bottom:calc(var(--size1) * 1.5);
+
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    align-content:start;
+    gap:10px;
+    z-index:100;
+}
+
+.ai-phone-icon{
+    width:100%;
+    aspect-ratio:1/1;
+    position:relative;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:var(--radius2);
+    cursor:pointer;
+}
+
+.ai-phone-icon,
+.ai-phone-icon-bg,
+.ai-phone-icon.insert-logo:after{
+    border-radius:var(--radius2);
+}
+
+.ai-phone-div2 .ai-phone-icon,
+.ai-phone-div2 .ai-phone-icon-bg,
+.ai-phone-div2 .ai-phone-icon.insert-logo:after{
+    border-radius:50%;
+}
+
+.ai-phone-icon-bg,
+.ai-phone-icon.insert-logo:after{
+    width:100%;
+    height:100%;
+
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    transition:0.15s;
+}
+
+.ai-phone-icon:hover .ai-phone-icon-bg,
+.ai-phone-icon.insert-logo:hover:after{
+    filter:brightness(85%);
+}
+
+.ai-phone-icon.insert-logo:after{
+    content:"";
+}
+
+.ai-phone-icon.insert-logo:after{
+    background-color:var(--txt2);
+}
+.dark-mode .ai-phone-icon.insert-logo:after{
+    background-color:var(--txt1);
+}
+.dark-logo-bg .ai-phone-icon.insert-logo:after{
+    background-color:var(--txt1);
+}
+.dark-mode.dark-logo-bg .ai-phone-icon.insert-logo:after{
+    background-color:var(--txt2);
+}
+.changed-bg-color .ai-phone-icon.insert-logo:after{
+    background-color:var(--changed-bg-color) !important;
+}
+
+.ai-phone-icon img{
+    width:70%;
+    height:70%;
+    position:relative;
+    z-index:10;
+}
+
+.ai-phone-div2 .ai-phone-icon img{
+    width:65%;
+    height:65%;
+}
+
+            /* App Icons - Bottom Bar */
+
+.ai-bottom-bar{
+    width:100%;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:10px;
+}
+
+.ai-bottom-bar :is(.ai-phone-icon:nth-of-type(1) div, .ai-phone-icon:nth-of-type(3) div){
+    background-color:var(--color1);
+}
+.ai-bottom-bar :is(.ai-phone-icon:nth-of-type(2) div, .ai-phone-icon:nth-of-type(4) div){
+    background-color:var(--color2a);
+}
+.dark-mode .ai-bottom-bar :is(.ai-phone-icon:nth-of-type(2) div, .ai-phone-icon:nth-of-type(4) div){
+    background-color:var(--color2b);
+}
+
+.ai-gestures{
+    width:100%;
+    height:var(--phone-bezel);
+    margin:calc(var(--phone-bezel) / 2) 0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.ai-gest-bar{
+    width:50%;
+    height:3px;
+    margin:0 auto;
+    background-color:rgb(255,255,255,0.7);
+    border-radius:200px;
+}
+
+        /* App Icons - media */
+
+@media screen and (width <= 768px){
+
+    .ai-inner{
+        flex-direction:column;
+    }
+
+    .ai-inner .section-content{
+        width:100%;
+    }
+
+}
+
+@media screen and (width <= 440px){
+
+    .ai-phone-div:before{
+        border-radius:30px;
+    }
+
+}
+
+@media screen and (width <= 320px){
+
+    .app-icons{
+        --phone-bezel:8px;
+    }
+
+    .ai-phone-div:before{
+        border-radius:22px;
+    }
+
+    .ai-phone-layout{
+        padding:var(--phone-bezel) calc(var(--phone-bezel) * 2);
+    }
+    
+    .ai-phone-div2 .ai-phone-layout{
+        padding:var(--phone-bezel) calc(var(--phone-bezel) * 2) calc(var(--phone-bezel) * 3);
+    }
+
+    .ai-top-bar{
+        margin-top:4px;
+        padding:0 8px;
+        box-sizing:border-box;
+    }
+    
+    .ai-time-bar{
+        font-size:10px;
+    }
+    
+    .ai-battery-icon{
+        width:18px;
+    }
+
+    .ai-time{
+        font-size:26px;
+    }
+
+    .ai-phone-div1 .ai-time{
+        font-family:font1;
+        font-size:32px;
+        text-align:center;
+    }
+
+    .ai-day{
+        color:#EEE;
+        font-size:10px;
+    }
+
+    .ai-phone-div1 .ai-day{
+        font-size:12px;
+        text-align:center;
+    }
+    
+    .ai-weather-icon{
+        width:26px;
+    }
+    
+    .ai-weather-txt{
+        font-size:10px;
+    }
+
+    .ai-phone-icons{
+        gap:6px;
+    }
+
+}

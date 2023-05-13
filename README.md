@@ -138,3 +138,10 @@ All of the values are an appriximation, since the logo is scaled down to improve
 
 There are 3 versions of the logo, each with a different level of pixelation.
 It simulates how the logo might look on a low-resolution device or when scaled incorrectly.
+
+### App Icons
+
+This sections contains 2 standard mobile devices. Each of them has a slightly differnt layout.
+The phone's home page design contains sections like the current hour, date, weather, and most importantly - app icons.
+
+The app icons placement is gererated randomly, so they change their place on every page reload.

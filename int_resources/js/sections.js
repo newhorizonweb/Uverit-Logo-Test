@@ -34,7 +34,7 @@ for (let i = 1; i <= 96; i++) {
 }
 /* Scalability */
 document.addEventListener("DOMContentLoaded", function () {
-    const csContent = document.querySelector(".si-change .st-content");
+    const csContent = document.querySelector(".si-change .si-insert-logo");
     const csSlider = document.querySelector(".cs-slider");
     const csTxtWidth = document.querySelector(".cs-slider-width");
     const csTxtMin = document.querySelector(".cs-slider-min");
@@ -52,14 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const logoImgParWidth = logoImgParent.offsetWidth;
         const logoImgParHeight = logoImgParent.offsetHeight;
         // Calculate the max logo size 
-        // Based on the logo aspect ratio or parent dimensions
-        let maxSize = 0;
-        if (csContentRatio <= 1) {
-            maxSize = Math.round(logoImgParHeight * csContentRatio);
-        }
-        else {
-            maxSize = Math.round(Math.max(logoImgParWidth, logoImgParHeight));
-        }
+        // Based on the logo aspect ratio or parent width
+        const maxSize = Math.round(Math.min(logoImgParWidth, Math.round(logoImgParHeight * csContentRatio)));
         // Set the slider min and max values
         csSlider.setAttribute("min", minSize.toString());
         csSlider.setAttribute("max", maxSize.toString());
@@ -82,7 +76,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     // Logo resize event listeners
     csSlider?.addEventListener("input", csLogoSize);
-    window.addEventListener("resize", csLogoSize);
+    let resizeTimer;
+    ;
+    window.addEventListener("resize", function () {
+        csLogoSize();
+        // Call the function once more after resizing
+        // If not, the max width wouldn't be accurate, since the resize event isn't called for every pixel when resizing fast
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+            csLogoSize();
+        }, 50);
+    });
     // Logo parent element
     const logoParent = document.querySelector(".si-insert-logo");
     // Check for any logo updates
@@ -154,4 +158,68 @@ bgColorReset?.addEventListener("click", function () {
     bgColorSection?.classList.remove("changed-section-color");
     bgColorPicker.value = "#FFFFFF";
 });
-/* Average Values */
+/* App Icons */
+const phones = document.querySelectorAll(".ai-phone-div");
+const iconArray = [
+    { url: "USER_LOGO", color: "#FFF" },
+    { url: "brush-icon.svg", color: "#88D62F" },
+    { url: "clock-icon.svg", color: "#40455D" },
+    { url: "facebook-icon.svg", color: "#0a81ed" },
+    { url: "google-drive-icon.svg", color: "#FFFFFF" },
+    { url: "google-play-icon.svg", color: "#FFFFFF" },
+    { url: "list-icon.svg", color: "#C7AE58" },
+    { url: "mail-icon.svg", color: "#8F8CEA" },
+    { url: "note-icon.svg", color: "#E73271" },
+    { url: "pin-icon.svg", color: "#F3F3F3" },
+    { url: "settings-icon.svg", color: "#78A8BD" },
+    { url: "spotify-icon.svg", color: "#1CCC5B" }
+];
+// Generate a random icon
+function insertRandomIcon(phone) {
+    // Create a copy of the iconArray
+    // so the items are not removed from the original array causing problems
+    const copiedIconArray = iconArray.slice();
+    for (let icon = 0; icon < iconArray.length; icon++) {
+        // Generate a random index
+        const randIndex = Math.floor(Math.random() * copiedIconArray.length);
+        const thisIcon = copiedIconArray[randIndex].url;
+        // Create the icon HTML element
+        const newIconDiv = document.createElement("div");
+        newIconDiv.classList.add("ai-phone-icon");
+        // Create a background-color element
+        const iconBg = document.createElement("div");
+        iconBg.classList.add("ai-phone-icon-bg");
+        newIconDiv.appendChild(iconBg);
+        // Check if it's a pre-defined icon or the uploaded logo
+        if (thisIcon !== "USER_LOGO") {
+            // Set the icon bg color
+            iconBg.style.backgroundColor = copiedIconArray[randIndex].color;
+            const newIcon = document.createElement("img");
+            newIcon.src = `int_resources/img/app_icons/${thisIcon}`;
+            newIconDiv.appendChild(newIcon);
+        }
+        else {
+            newIconDiv.classList.add("insert-logo");
+        }
+        // Append the icon
+        phone.querySelector(".ai-phone-icons").appendChild(newIconDiv);
+        // Remove the item from the array, so it won't repeat
+        copiedIconArray.splice(randIndex, 1);
+    }
+}
+// Insert the current time
+function currentTime(phone) {
+    const now = new Date();
+    const hours = now.getHours().toString();
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const date = now.toLocaleString('en-US', { month: 'short', day: 'numeric' });
+    const weekDay = new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(now);
+    phone.querySelector(".ai-time-bar").innerHTML = hours + ":" + minutes;
+    phone.querySelector(".ai-time").innerHTML = hours.padStart(2, '0') + ":" + minutes;
+    phone.querySelector(".ai-day").innerHTML = `${weekDay}, ${date}`;
+}
+// Call the functions for each phone
+phones.forEach((phone) => {
+    insertRandomIcon(phone);
+    currentTime(phone);
+});

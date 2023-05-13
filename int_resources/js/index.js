@@ -1,6 +1,6 @@
 /* Program Settings */
 // Program Version
-const programVersion = "v0.6.0";
+const programVersion = "v0.7.0";
 // Uverit URL
 const uveritLink = "https://www.fiverr.com/new_horizon_web";
 /* Embedded SVG */
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const navLinkInner = document.createElement("p");
         navLinkInner.classList.add("nav-link-inner");
         navLinkInner.setAttribute("tabindex", "0");
-        navLinkInner.innerHTML = stElemHeading.querySelector("h3").innerHTML;
+        navLinkInner.innerHTML = stElemHeading.querySelector(".mh-title").innerHTML;
         navLink.appendChild(navLinkInner);
         // Append everything
         navbarInner?.appendChild(navLink);

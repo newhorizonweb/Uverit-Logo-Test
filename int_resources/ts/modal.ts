@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function(){
         scrolltoElements.forEach(function(scrollElem){
 
             // Page element distance from top
-            const thisPos:number = (scrollElem as HTMLElement).offsetTop - (windowHeight * 0.25);
+            const thisPos:number = (scrollElem as HTMLElement).offsetTop - (windowHeight * 0.3);
 
             // Page element data-link attribute (to match with the nav element)
             const thisElem:string | null = scrollElem.getAttribute("data-link");
@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const uploadAgainBtn:HTMLElement | null = document.querySelector(".upload-again");
 
     // Temporary (delete later, I don't want to hide this element every time i refresh the page)
-    //body!.classList.add("hide-modal");
+    body!.classList.add("hide-modal");
 
     // Upload the logo again (show the modal after the first logo upload)
     uploadAgainBtn?.addEventListener("click", function(){
@@ -463,7 +463,10 @@ document.addEventListener("DOMContentLoaded", function(){
     
                 // Append the canvas to the document
                 pixelatedLogoParent!.appendChild(img);
-    
+
+                // Insert the pixelated logo dimensions (Xpx x Xpx)
+                document.querySelector(".pixel-txt"+(i+1))!.innerHTML = `${canvas.width}px x ${canvas.height}px`;
+
             }, {once: true});
 
         }
@@ -473,12 +476,12 @@ document.addEventListener("DOMContentLoaded", function(){
     // Image aspect ratio
     function imgAspectRatio(){
 
-        const scalabilityRatio:HTMLElement | null = document.querySelector(".si-change .st-content");
+        const scalabilityRatio:HTMLElement | null = document.querySelector(".si-change .si-insert-logo");
         const logoImg:HTMLImageElement | null = document.querySelector(".si-change .insert-logo-img");
 
         logoImg!.onload = function(){
             const aspectRatio:number = logoImg!.width / logoImg!.height;
-            scalabilityRatio!.style.aspectRatio = aspectRatio+"/1";
+            scalabilityRatio!.style.aspectRatio = aspectRatio+ "/1";
         }
 
     }
