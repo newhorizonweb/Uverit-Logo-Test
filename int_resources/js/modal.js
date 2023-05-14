@@ -114,25 +114,27 @@ document.addEventListener("DOMContentLoaded", function () {
     //*--|*|--*\\_____// Fade In Animation \\_____//*--|*|--*\\
     const sectionElements = document.querySelectorAll(".scrollto");
     function sectionFade() {
-        sectionElements.forEach((section) => {
-            // Section position
-            const sectionPos = section.getBoundingClientRect();
-            // Section heading element height
-            const secHeadHeight = section.querySelector(".st-heading")?.offsetHeight;
-            // window height
-            const windowHeight = window.innerHeight;
-            // Section fade in when it's at the bottom of the page
-            if (sectionPos.top < windowHeight * 0.9 - secHeadHeight) {
-                section.classList.add("fade-in");
-            }
-            else {
-                section.classList.remove("fade-in");
-            }
-            // Section fade out when it's at the top of the page
-            if (sectionPos.bottom !== 0 &&
-                sectionPos.bottom < windowHeight * 0.15) {
-                section.classList.remove("fade-in");
-            }
+        // Window height
+        const windowHeight = window.innerHeight;
+        requestAnimationFrame(() => {
+            sectionElements.forEach((section) => {
+                // Section position
+                const sectionPos = section.getBoundingClientRect();
+                // Section heading element height
+                const secHeadHeight = section.querySelector(".st-heading")?.offsetHeight;
+                // Section fade in when it's at the bottom of the page
+                if (sectionPos.top < windowHeight * 0.9 - secHeadHeight) {
+                    section.classList.add("fade-in");
+                }
+                else {
+                    section.classList.remove("fade-in");
+                }
+                // Section fade out when it's at the top of the page
+                if (sectionPos.bottom !== 0 &&
+                    sectionPos.bottom < windowHeight * 0.15) {
+                    section.classList.remove("fade-in");
+                }
+            });
         });
     }
     window.addEventListener("load", sectionFade);
@@ -271,6 +273,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const lightness = Math.round(lightnessSum / totAlpha / 255 * 100);
             document.body.style.setProperty("--logo-lightness", lightness + "%");
             document.body.style.setProperty("--logo-lightness-txt", "'" + lightness + "%'");
+            // Remove the bg color adjustment classes
+            body.classList.remove("dark-logo-bg");
+            body.classList.remove("light-logo-bg");
             // Add a class to the body based on the image lightness
             if (lightness >= 90) {
                 body.classList.add("dark-logo-bg");
@@ -324,6 +329,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }, { once: true });
         }
     }
+    // Reser the logo bg color set by the user (rangle slider)
+    const bgColorSlider = document.querySelector(".yl-bg-slider");
+    const colorSliderPercent = document.querySelector(".yl-slider-percent");
+    function resetBgColor() {
+        bgColorSlider.value = "128";
+        colorSliderPercent.innerHTML = "";
+        document.body.classList.remove("changed-bg-color");
+    }
     // Image aspect ratio
     function imgAspectRatio() {
         const scalabilityRatio = document.querySelector(".si-change .si-insert-logo");
@@ -333,7 +346,7 @@ document.addEventListener("DOMContentLoaded", function () {
             scalabilityRatio.style.aspectRatio = aspectRatio + "/1";
         };
     }
-    // Insert logo function
+    // Insert logo
     function insertLogo(url) {
         insertLogoElements.forEach((logoElem) => {
             // Create an image element
@@ -454,6 +467,8 @@ document.addEventListener("DOMContentLoaded", function () {
             imgAvgColors(url);
             // Insert pixelated logos
             pixelateLogo(url);
+            // Reset the logo bg color
+            resetBgColor();
         }, 0);
         // Page toggle
         pageToggle();

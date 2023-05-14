@@ -165,31 +165,34 @@ document.addEventListener("DOMContentLoaded", function(){
     const sectionElements:NodeListOf<Element> = document.querySelectorAll(".scrollto");
 
     function sectionFade(){
-        sectionElements.forEach((section) => {
 
-            // Section position
-            const sectionPos:DOMRect = section.getBoundingClientRect();
+        // Window height
+        const windowHeight:number = window.innerHeight;
 
-            // Section heading element height
-            const secHeadHeight:number = (section.querySelector(".st-heading") as HTMLElement)?.offsetHeight;
+        requestAnimationFrame(() => {
+            sectionElements.forEach((section) => {
 
-            // window height
-            const windowHeight:number = window.innerHeight;
+                // Section position
+                const sectionPos:DOMRect = section.getBoundingClientRect();
 
-            // Section fade in when it's at the bottom of the page
-            if (sectionPos.top < windowHeight * 0.9 - secHeadHeight){
-                section.classList.add("fade-in");
+                // Section heading element height
+                const secHeadHeight:number = (section.querySelector(".st-heading") as HTMLElement)?.offsetHeight;
 
-            } else {
-                section.classList.remove("fade-in");
-            }
+                // Section fade in when it's at the bottom of the page
+                if (sectionPos.top < windowHeight * 0.9 - secHeadHeight){
+                    section.classList.add("fade-in");
 
-            // Section fade out when it's at the top of the page
-            if (sectionPos.bottom !== 0 &&
-            sectionPos.bottom < windowHeight * 0.15){
-                section.classList.remove("fade-in");
-            }
+                } else {
+                    section.classList.remove("fade-in");
+                }
 
+                // Section fade out when it's at the top of the page
+                if (sectionPos.bottom !== 0 &&
+                sectionPos.bottom < windowHeight * 0.15){
+                    section.classList.remove("fade-in");
+                }
+
+            });
         });
     }
 
@@ -390,6 +393,10 @@ document.addEventListener("DOMContentLoaded", function(){
             document.body.style.setProperty("--logo-lightness", lightness+"%");
             document.body.style.setProperty("--logo-lightness-txt", "'"+lightness+"%'");
 
+            // Remove the bg color adjustment classes
+            body!.classList.remove("dark-logo-bg");
+            body!.classList.remove("light-logo-bg");
+
             // Add a class to the body based on the image lightness
             if (lightness >= 90){
                 body!.classList.add("dark-logo-bg");
@@ -467,6 +474,16 @@ document.addEventListener("DOMContentLoaded", function(){
         
     }
 
+    // Reser the logo bg color set by the user (rangle slider)
+    const bgColorSlider:HTMLInputElement | null = document.querySelector(".yl-bg-slider");
+    const colorSliderPercent:HTMLElement | null = document.querySelector(".yl-slider-percent");
+
+    function resetBgColor(){
+        bgColorSlider!.value = "128";
+        colorSliderPercent!.innerHTML = "";
+        document.body.classList.remove("changed-bg-color");
+    }
+
     // Image aspect ratio
     function imgAspectRatio(){
 
@@ -480,7 +497,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     }
 
-    // Insert logo function
+    // Insert logo
     function insertLogo(url){
         insertLogoElements.forEach((logoElem) => {
 
@@ -656,6 +673,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
             // Insert pixelated logos
             pixelateLogo(url);
+
+            // Reset the logo bg color
+            resetBgColor()
         }, 0);
 
         // Page toggle

@@ -5,7 +5,7 @@
 
 .logo-modal{
     width:100vw;
-    height:100vh;
+    height:100dvh;
     padding:0 var(--size1);
     box-sizing:border-box;
 
@@ -550,6 +550,7 @@ screen and (height <= 540px){
     justify-content:center;
     align-items:center;
 
+    will-change:left;
     background-color:var(--shade1);
     border-radius:var(--mainRadius1);
     box-shadow:var(--box-shadow1) var(--wrapperColor1), var(--box-shadow2) var(--wrapperColor1);

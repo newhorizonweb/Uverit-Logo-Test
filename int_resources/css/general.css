@@ -647,7 +647,7 @@ nav{
 }
 
 .navbar-inner{
-    max-height:calc(100vh - 100px - (var(--size1) * 5));
+    max-height:calc(100dvh - 100px - (var(--size1) * 5));
     min-width:300px;
     padding:var(--size1);
     box-sizing:border-box;
