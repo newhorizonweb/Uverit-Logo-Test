@@ -287,10 +287,9 @@
         /* Logo Modal - Go To Page Button */
 
 .to-page{
-    margin-top:auto;
-
     height:0;
     aspect-ratio:2/1;
+    margin-top:auto;
     box-sizing:border-box;
 
     display:flex;
@@ -1601,6 +1600,7 @@ screen and (height <= 540px){
 
 .ai-battery-icon{
     width:24px;
+    aspect-ratio:1/0.43875;
 }
 
             /* App Icons - Top */
@@ -1648,6 +1648,7 @@ screen and (height <= 540px){
 
 .ai-weather-icon{
     width:38px;
+    aspect-ratio:1/1;
 }
 
 .ai-weather-txt{
@@ -1865,6 +1866,62 @@ screen and (height <= 540px){
 
     .ai-phone-icons{
         gap:6px;
+    }
+
+}
+
+    /* Comparison */
+
+.comparison-content{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    align-content:start;
+    gap:calc(var(--size1) * 1.5);
+}
+
+.dark-mode.light-logo-bg .comparison-content{
+    background-color:var(--shade5);
+}
+
+.dark-logo-bg:not(.dark-mode) .comparison-content{
+    background-color:var(--shade6);
+}
+
+.changed-bg-color .comparison-content{
+    background-color:var(--changed-bg-color) !important;
+    transition:all 0s, left 0.4s;
+}
+
+.cc-logo *{
+    transition:0.15s;
+}
+
+.comp-logo-fill{
+    fill:var(--txt1);
+}
+
+        /* Comparison - media */
+
+@media screen and (width <= 1024px){
+
+    .comparison-content{
+        grid-template-columns:repeat(3, 1fr);
+    }
+
+}
+
+@media screen and (width <= 768px){
+
+    .comparison-content{
+        gap:var(--size1);
+    }
+
+}
+
+@media screen and (width <= 440px){
+
+    .comparison-content{
+        grid-template-columns:repeat(2, 1fr);
     }
 
 }

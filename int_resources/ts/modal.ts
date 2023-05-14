@@ -195,7 +195,20 @@ document.addEventListener("DOMContentLoaded", function(){
 
     window.addEventListener("load", sectionFade);
     window.addEventListener("scroll", sectionFade);
-    window.addEventListener("resize", sectionFade);
+
+    let resizeTimer:ReturnType<typeof setTimeout>;;
+    window.addEventListener("resize", function(){
+        
+        sectionFade();
+
+        // Call the function once more after resizing
+        // or the element won't fade in after a fast window resize
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function(){
+            sectionFade();
+        }, 50);
+        
+    });
 
 
 
@@ -207,9 +220,6 @@ document.addEventListener("DOMContentLoaded", function(){
         
     const body:HTMLElement | null = document.querySelector("body");
     const uploadAgainBtn:HTMLElement | null = document.querySelector(".upload-again");
-
-    // Temporary (delete later, I don't want to hide this element every time i refresh the page)
-    body!.classList.add("hide-modal");
 
     // Upload the logo again (show the modal after the first logo upload)
     uploadAgainBtn?.addEventListener("click", function(){
@@ -244,22 +254,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // Accepted file types
     const fileTypes = ['image/png', 'image/svg+xml'];
-
-
-
-
-                // TEMPORARY 
-                insertLogoElements.forEach((logoElem) => { 
-                    // Create an image element 
-                    const logoImg:HTMLImageElement = document.createElement("img"); 
-                    logoImg.src = "int_resources/img/uverit-favicon-bbg.svg"; 
-                    logoImg.classList.add("insert-logo-img"); 
-                    // Remove previous content from the logo elements 
-                    logoElem.innerHTML = ""; 
-                    // Append logo to the elements
-                    logoElem.appendChild(logoImg); 
-                });
-
 
 
 

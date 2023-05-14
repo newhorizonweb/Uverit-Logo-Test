@@ -14,18 +14,22 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
 
         <link rel="shortcut icon" href="int_resources/img/uverit-favicon-bbg.svg" type="image/x-icon">
+        
+        <link rel="preload" href="int_resources/css/general.css" as="style">
         <link rel="stylesheet" type="text/css" href="int_resources/css/general.css" media="screen">
+        <link rel="preload" href="int_resources/css/main.css" as="style">
         <link rel="stylesheet" type="text/css" href="int_resources/css/main.css" media="screen">
         
         <!-- Scripts -->
         <script src="int_resources/js/ScriptPackLT.js" defer></script>
-        <script src="int_resources/js/index.js"></script>
+        <script src="int_resources/js/index.js" defer></script>
         <script src="int_resources/js/modal.js" defer></script>
         <script src="int_resources/js/sections.js" defer></script>
+        <script src="int_resources/js/comparison.js" defer></script>
     </head>
         
     <body>
-
+    
     <!-- LOGO MODAL -->
         <div class="logo-modal">
             <div class="logo-modal-inner wrapper">
@@ -208,8 +212,8 @@
 
                     <div class="scrollto bg-color">
                         <div class="st-heading">
-                            <h3 class="mh-title">Background Color</h3>
-                            <p class="st-subtitle">Experience Your Logo's Contrast with Various Background Colors to Boost Visibility.</p>
+                            <h3 class="mh-title">Background</h3>
+                            <p class="st-subtitle">Experience your logo's contrast with various background colors to boost visibility.</p>
                         </div>
  
                         <div class="st-content bgc-section">
@@ -262,6 +266,44 @@
                             </div>
 
                             <div class="bgc-reset">Reset</div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="scrollto pixelated triple-section">
+                        <div class="st-heading">
+                            <h3 class="mh-title">Pixelated</h3>
+                            <p class="st-subtitle">Very detailed logos can be unrecognizable at lower resolutions. Make sure yours remains identifiable in such cases.</p>
+                        </div>
+
+                        <div class="ts-inner">
+                            <div class="ts-item">
+                                <div class="ts-logo section-content">
+                                    <div class="insert-pixel-logo1 logo-style"></div>
+                                </div>
+                                <div class="ts-txt section-content">
+                                    <p class="pixel-txt1"></p>
+                                </div>
+                            </div>
+
+                            <div class="ts-item">
+                                <div class="ts-logo section-content">
+                                    <div class="insert-pixel-logo2 logo-style"></div>
+                                </div>
+                                <div class="ts-txt section-content">
+                                    <p class="pixel-txt2"></p>
+                                </div>
+                            </div>
+
+                            <div class="ts-item">
+                                <div class="ts-logo section-content">
+                                    <div class="insert-pixel-logo3 logo-style"></div>
+                                </div>
+                                <div class="ts-txt section-content">
+                                    <p class="pixel-txt3"></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -489,44 +531,6 @@
 
 
 
-                    <div class="scrollto pixelated triple-section">
-                        <div class="st-heading">
-                            <h3 class="mh-title">Pixelated</h3>
-                            <p class="st-subtitle">Very detailed logos can be unrecognizable at lower resolutions. Make sure yours remains identifiable in such cases.</p>
-                        </div>
-
-                        <div class="ts-inner">
-                            <div class="ts-item">
-                                <div class="ts-logo section-content">
-                                    <div class="insert-pixel-logo1 logo-style"></div>
-                                </div>
-                                <div class="ts-txt section-content">
-                                    <p class="pixel-txt1"></p>
-                                </div>
-                            </div>
-
-                            <div class="ts-item">
-                                <div class="ts-logo section-content">
-                                    <div class="insert-pixel-logo2 logo-style"></div>
-                                </div>
-                                <div class="ts-txt section-content">
-                                    <p class="pixel-txt2"></p>
-                                </div>
-                            </div>
-
-                            <div class="ts-item">
-                                <div class="ts-logo section-content">
-                                    <div class="insert-pixel-logo3 logo-style"></div>
-                                </div>
-                                <div class="ts-txt section-content">
-                                    <p class="pixel-txt3"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
                     <div class="scrollto app-icons">
                         <div class="st-heading">
                             <h3 class="mh-title">App Icons</h3>
@@ -647,8 +651,16 @@
 
 
 
+                    <div class="scrollto comparison">
+                        <div class="st-heading">
+                            <h3 class="mh-title">Comparison</h3>
+                            <p class="st-subtitle">Compare your logo to some of the most well-known ones and see if it catches attention.</p>
+                        </div>
 
-
+                        <div class="section-content comparison-content">
+                            
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -657,11 +669,7 @@
         </main>
 
     <!-- FOOTER -->
-        <footer>
-            <script>
-                baseFooter();
-            </script>
-        </footer>
+        <footer></footer>
     <!-- /FOOTER -->
 
     </div>

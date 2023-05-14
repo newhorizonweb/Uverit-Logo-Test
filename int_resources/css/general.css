@@ -616,6 +616,8 @@ nav{
 
     opacity:0;
     transition:0.25s;
+    animation:navClose 0.25s;
+    overflow:hidden;
 }
 
 .nav-open .navbar{
@@ -624,6 +626,17 @@ nav{
     animation:navOpen 0.25s;
 }
 
+@keyframes navClose{
+    0%{
+        opacity:1;
+    }
+    95%{
+        opacity:1;
+    }
+    100%{
+        opacity:0;
+    }
+}
 @keyframes navOpen{
     0%{
         opacity:0;
@@ -634,7 +647,14 @@ nav{
 }
 
 .navbar-inner{
+    max-height:calc(100vh - 100px - (var(--size1) * 5));
+    min-width:300px;
     padding:var(--size1);
+    box-sizing:border-box;
+
+    position:relative;
+    top:0;
+
     display:flex;
     flex-direction:column;
     gap:8px;
@@ -644,6 +664,32 @@ nav{
     border-radius:var(--mainRadius1);
 
     transition:all 0.15s;
+    overflow:overlay;
+}
+
+.scrolled-nav .navbar-inner{
+    max-height:calc(100vh - 100px - (var(--size1) * 4));
+}
+
+.navbar-inner::-webkit-scrollbar{
+    width:10px;
+}
+
+.navbar-inner::-webkit-scrollbar-track{
+    display:none;
+}
+
+.navbar-inner::-webkit-scrollbar-thumb{
+    background:#AAA;
+    border:solid 4px transparent;
+    border-top:solid var(--size1) transparent;
+    border-bottom:solid var(--size1) transparent;
+    background-clip:padding-box;
+}
+
+.dark-mode .navbar-inner::-webkit-scrollbar-thumb{
+    background:#777;
+    background-clip:padding-box;
 }
 
 .nav-link{
@@ -659,23 +705,26 @@ nav{
     width:100%;
     margin:6px 0;
     padding:2px 12px;
-
     position:relative;
+
+    color:var(--txt-faded);
     white-space:nowrap;
+    text-align:center;
     text-overflow:ellipsis;
 
     border:solid 2px transparent;
     border-left:solid 2px var(--txt1);
     border-right:solid 2px var(--txt1);
 
-    overflow:hidden;
-    cursor:pointer;
     transition:0.15s;
+    cursor:pointer;
+    overflow:hidden;
 }
 
 .closest-elem .nav-link-inner{
-    border-left-color:var(--color1);
-    border-right-color:var(--color1);
+    color:var(--color2);
+    border-left-color:var(--color2);
+    border-right-color:var(--color2);
 }
 
 .nav-link-inner:hover,
@@ -824,6 +873,16 @@ nav{
         border-radius:0;
     }
 
+    .navbar-inner{
+        min-width:auto;
+    }
+
+    .closest-elem .nav-link-inner{
+        color:var(--txt-faded);
+        border-left-color:var(--txt1);
+        border-right-color:var(--txt1);
+    }
+
 }
 
 
@@ -896,16 +955,24 @@ footer .wrapper{
 
 .socials svg{
     height:70%;
-    fill:var(--txt-faded2);
     transition:0.15s;
-}
-
-.dark-mode .socials svg{
-    fill:var(--txt1);
 }
 
 .socials a:hover svg{
     height:90%;
+}
+
+.socials svg *{
+    height:70%;
+    fill:var(--txt-faded2);
+    transition:0.15s;
+}
+
+.dark-mode .socials svg *{
+    fill:var(--txt1);
+}
+
+.socials a:hover svg *{
     fill:var(--color1);
 }
 

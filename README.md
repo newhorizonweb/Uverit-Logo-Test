@@ -74,6 +74,11 @@ It's a standard HTML input (color), so after the color is selected, the user can
 
 The color can be reset to the basic one.
 
+### Pixelated
+
+There are 3 versions of the logo, each with a different level of pixelation.
+It simulates how the logo might look on a low-resolution device or when scaled incorrectly.
+
 ### Blur
 
 There are 3 versions of the logo:
@@ -134,14 +139,31 @@ If the logo has semi-transparent parts, they will be calculated with the exact s
 
 All of the values are an appriximation, since the logo is scaled down to improve performance. However, the differences are rather insignificant (<3%), so the displayed result is pretty accurate.
 
-### Pixelated
-
-There are 3 versions of the logo, each with a different level of pixelation.
-It simulates how the logo might look on a low-resolution device or when scaled incorrectly.
-
 ### App Icons
 
 This sections contains 2 standard mobile devices. Each of them has a slightly differnt layout.
 The phone's home page design contains sections like the current hour, date, weather, and most importantly - app icons.
 
 The app icons placement is gererated randomly, so they change their place on every page reload.
+
+### Comparison
+
+It is a grid layout consisting of 11 popular, widely-recognizable logos and the uploaded logo among them.
+The user can compare their logo to see if it draws attention and stands out from the crowd.
+The logo placement is generated randomly.
+
+## Technologies
+
+- Code
+    - HTML 5
+    - CSS 3
+    - JavaScript
+    - TypeScript 5.0.3
+
+- Graphics & Icons
+    - SVG
+    - Adobe Illustrator
+
+## License
+
+Uverit Color Palette - All Rights Reserved.

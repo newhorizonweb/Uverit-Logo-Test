@@ -137,13 +137,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     window.addEventListener("load", sectionFade);
     window.addEventListener("scroll", sectionFade);
-    window.addEventListener("resize", sectionFade);
+    let resizeTimer;
+    ;
+    window.addEventListener("resize", function () {
+        sectionFade();
+        // Call the function once more after resizing
+        // or the element won't fade in after a fast window resize
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+            sectionFade();
+        }, 50);
+    });
     //*--|*|--*\\_____// Logo Modal \\_____//*--|*|--*\\
     /* Upload Again Button */
     const body = document.querySelector("body");
     const uploadAgainBtn = document.querySelector(".upload-again");
-    // Temporary (delete later, I don't want to hide this element every time i refresh the page)
-    body.classList.add("hide-modal");
     // Upload the logo again (show the modal after the first logo upload)
     uploadAgainBtn?.addEventListener("click", function () {
         // Scroll to the top of the page (async)
@@ -166,17 +174,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const insertColoredLogo = document.querySelector(".insert-colored-logo");
     // Accepted file types
     const fileTypes = ['image/png', 'image/svg+xml'];
-    // TEMPORARY 
-    insertLogoElements.forEach((logoElem) => {
-        // Create an image element 
-        const logoImg = document.createElement("img");
-        logoImg.src = "int_resources/img/uverit-favicon-bbg.svg";
-        logoImg.classList.add("insert-logo-img");
-        // Remove previous content from the logo elements 
-        logoElem.innerHTML = "";
-        // Append logo to the elements
-        logoElem.appendChild(logoImg);
-    });
     /* Upload Functions */
     // Change logo color to the average color
     function avgLogoColor(url, avgR, avgG, avgB) {

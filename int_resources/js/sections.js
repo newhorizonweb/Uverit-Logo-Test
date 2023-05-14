@@ -79,13 +79,15 @@ document.addEventListener("DOMContentLoaded", function () {
     let resizeTimer;
     ;
     window.addEventListener("resize", function () {
-        csLogoSize();
-        // Call the function once more after resizing
-        // If not, the max width wouldn't be accurate, since the resize event isn't called for every pixel when resizing fast
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function () {
+        if (document.querySelector(".si-change .insert-logo-img")) {
             csLogoSize();
-        }, 50);
+            // Call the function once more after resizing
+            // If not, the max width wouldn't be accurate, since the resize event isn't called for every pixel when resizing fast
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function () {
+                csLogoSize();
+            }, 50);
+        }
     });
     // Logo parent element
     const logoParent = document.querySelector(".si-insert-logo");
@@ -194,8 +196,10 @@ function insertRandomIcon(phone) {
         if (thisIcon !== "USER_LOGO") {
             // Set the icon bg color
             iconBg.style.backgroundColor = copiedIconArray[randIndex].color;
+            // Create the actual icon
             const newIcon = document.createElement("img");
             newIcon.src = `int_resources/img/app_icons/${thisIcon}`;
+            newIcon.setAttribute("alt", "Application icon");
             newIconDiv.appendChild(newIcon);
         }
         else {
