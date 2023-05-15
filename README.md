@@ -166,4 +166,4 @@ The logo placement is generated randomly.
 
 ## License
 
-Uverit Color Palette - All Rights Reserved.
+Uverit Logo Test - All Rights Reserved.
