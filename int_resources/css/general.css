@@ -1129,7 +1129,7 @@ footer .wrapper{
 }
 
 :root{
-    --gradBgWidth:calc(100% / 11);
+    --gradBgWidth:calc(100% / 9);
 }
 
 .main-bg-grad{
@@ -1145,10 +1145,9 @@ footer .wrapper{
     background:linear-gradient(to right, 
         var(--color1a) calc(var(--gradBgWidth) * 1),
         var(--color1)  calc(var(--gradBgWidth) * 3),
-        var(--color3a) calc(var(--gradBgWidth) * 5),
-        var(--color2)  calc(var(--gradBgWidth) * 7),
-        var(--color2a) calc(var(--gradBgWidth) * 9),
-        var(--color1a) calc(var(--gradBgWidth) * 11));
+        var(--color2)  calc(var(--gradBgWidth) * 5),
+        var(--color2a) calc(var(--gradBgWidth) * 7),
+        var(--color1a) calc(var(--gradBgWidth) * 9));
 
     background-size:50%;
     /* The rest is in script-pack JS */
