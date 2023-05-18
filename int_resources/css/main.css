@@ -33,6 +33,8 @@
     background-color:var(--shade3);
     box-shadow:var(--box-shadow1) var(--wrapperColor1), var(--box-shadow2) var(--wrapperColor1);
     border-radius:var(--mainRadius1);
+
+    backdrop-filter:blur(4px);
     transition:0.15s;
 }
 
@@ -366,6 +368,10 @@
 
     .logo-modal{
         --size1:var(--size2);
+    }
+
+    .logo-modal-inner{
+        backdrop-filter:blur(0);
     }
 
     .lm-logo{

@@ -1233,6 +1233,14 @@ main{
 
         /* Main - media */
 
+@media screen and (width <= 768px){
+    
+    .main-wrapper{
+        backdrop-filter:blur(0);
+    }
+
+}
+
 @media screen and (width <= 540px){
     
     main{
