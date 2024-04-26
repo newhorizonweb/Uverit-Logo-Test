@@ -3,7 +3,7 @@ const arrowIcon = "<svg class='scrollicon' xmlns='http://www.w3.org/2000/svg' vi
 document.addEventListener("DOMContentLoaded", function () {
     /* Program Settings */
     // Program Version
-    const programVersion = "v1.0.3";
+    const programVersion = "v1.0.4";
     // Uverit URL
     const uveritLink = "https://www.fiverr.com/new_horizon_web";
     /* Embedded SVG */

@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function(){
         /* Program Settings */
 
     // Program Version
-    const programVersion:string = "v1.0.3";
+    const programVersion:string = "v1.0.4";
 
     // Uverit URL
     const uveritLink:string = "https://www.fiverr.com/new_horizon_web";
