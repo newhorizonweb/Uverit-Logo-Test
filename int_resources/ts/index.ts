@@ -13,10 +13,10 @@ document.addEventListener("DOMContentLoaded", function(){
         /* Program Settings */
 
     // Program Version
-    const programVersion:string = "v1.0.4";
+    const programVersion:string = "v1.0.5";
 
     // Uverit URL
-    const uveritLink:string = "https://www.fiverr.com/new_horizon_web";
+    const uveritLink:string = "https://github.com/newhorizonweb";
 
 
 
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const navUploadIcon:string = "<svg data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><defs><style>.cls-1{fill:none; stroke-linecap:round;stroke-linejoin:round;}</style></defs><path class='cls-1' d='M187.2,128.2v30.3a28.8,28.8,0,0,1-28.7,28.7H41.5a28.8,28.8,0,0,1-28.7-28.7V128.2'/><line class='cls-1' x1='100' y1='145.4' x2='100' y2='12.7'/><polyline class='cls-1' points='147.2 60 100 12.7 52.8 60'/></svg>";
 
     // Fiverr Icon
-    const fiIcon:string = "<svg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' x='0' y='0' style='enable-background:new 0 0 400 400' version='1.1' viewBox='0 0 400 400'><path d='M338 325V125H138v-13c0-20 16-37 37-37h37V0h-37C113 0 63 50 63 113v12H13v75h50v125H13v75h175v-75h-50V200h125v125h-50v75h175v-75h-50z' class='st0'/><circle cx='300' cy='37.5' r='37.5'/></svg>";
+    const footerIcon:string = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path class='cls-1' d='M443.9,154c-3.4-24.1-10.1-46.4-28.4-63.6-2.4-2.2-2.9-4.2-1.5-7.4,11.1-26.1,9.7-52.2.2-78.5-1-3-2.6-4.2-6.4-3.8-9.2,1-17,5.3-24.5,9.9-15.5,9.4-27.4,22.7-37.8,37.3-2.3,3.1-4,3.1-6.4,1.3-3.1-2.3-6.4-4.2-10-5.5-15.5-5.7-31.7-7.9-48.1-8.2-23-.5-46.2-1.1-69.2,1.3-12.8,1.4-25.8,3.6-36.9,10.7-8.4,5.4-7.6,3.1-11.5-2.2-13.7-18.7-29.9-34.1-51.9-42.7-11.2-4.5-13.9-3.3-16.4,8.5-.1.8-.2,1.6-.5,2.3-7.2,23.1-6.4,46.2,2.1,68.7,1.7,4.4.7,6.4-2.1,9.1-8.9,8.4-15.2,18.6-19.6,29.7-7,18-9.5,37.1-10.5,56.4-.9,15.2-.2,30.6-.3,45.8-.1,8.7,2.3,17,4.4,25.2,3.8,15.1,10.4,29.2,19.9,41.8,19.8,26.5,47.1,41.8,78.1,51.2,11.2,3.4,23.1,4.4,34.9,7.3-2.5,5-5.8,9.2-7.9,14.1-4.6,11-7,22.5-7.8,34.3-.2,2.6-1.3,4.2-3.8,4.9-12.5,3.8-25,6.3-38.1,4.8-21.8-2.5-39.8-11.7-53.8-28.5-7-8.4-11.5-18.3-18.7-26.5-14.2-15.9-31.7-22.9-52.9-20.7-4.6.5-5.8,3.3-3.2,7.1,1,1.4,2.5,2.3,3.8,3.4,4.1,3.7,9.6,5.5,13.2,10,12.9,16.4,23.9,33.9,33.3,52.7,10.4,20.8,27.2,37.3,49.1,45.5,11.3,4.3,23.4,6.3,35.4,6.6,6,.1,12-.1,18-.7s6-.7,9-1.1,7-2.1,8.4-.1,1.2,6.8,1.4,9.1c1.1,13,7,25.5,16.6,34.5,6.6,6.2,14.9,10.6,23.7,12.8s16.3,1.5,24.5,1.5h19.8c15.3,0,30.2-6.9,40.2-18.5,7.9-9.3,12.3-21.2,12.6-33.3.1-5.6,0-11.2,0-16.8s0-9.6,0-14.5c0-11.1.3-22.2.2-33.3,0-7.6-1.1-15.3-3.2-22.6-1.3-4.5-3.2-8.7-5.3-12.9-1.1-2.1-2.2-4.1-3.3-6.2s-2.4-5.4-3.2-5.2c14.9-3.7,29.9-5,44.1-10.3,19.9-7.3,38.5-17,54-31.5,26.3-24.9,38.5-56,39.4-91.8.6-20.4-.2-40.8-3.1-61.1Z'/></svg>";
 
 
 
@@ -52,13 +52,16 @@ document.addEventListener("DOMContentLoaded", function(){
     const footerContent:string =  
     "<div class='wrapper'>" +
         "<div class='brand'>" +
-            "<div class='brand-logo uverit-logo' onclick='scrollToTop()'></div>" +
+            `<div class='brand-logo uverit-logo' onclick='scrollToTop()'>
+                ${uveritLogo}
+            </div>` +
     
             "<div class='socials'>" +
-                "<h6>Services on Fiverr</h6>" +
-                `<a href='${uveritLink}' class='social-btn' target='_blank' rel='noreferrer' aria-label='Fiverr Icon (link)'></a>`+
+                "<h6>Uverit on GitHub</h6>" +
+                `<a href='${uveritLink}' class='social-btn' target='_blank' rel='noreferrer' aria-label='GitHub Icon (link)'></a>`+
             "</div>" +
         "</div>" +
+
         "<div class='credits'>" +
             `<a href='${uveritLink}' target='_blank' rel='noreferrer'>` + 
                 "© Uverit Logo Test " + programVersion + " - " + footerDate + 
@@ -73,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
         /* Insert Fiverr Logo into the footer link */
 
-    document.querySelector(".social-btn")!.innerHTML = fiIcon;
+    document.querySelector(".social-btn")!.innerHTML = footerIcon;
 
 
 

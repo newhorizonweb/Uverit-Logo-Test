@@ -2,10 +2,8 @@
 
 ## What is it?
 
-Uverit Logo Test is a program that the main goal is to break down the logo into single, easy to understand elements.
+[Uverit Logo Test](https://newhorizonweb.github.io/Uverit-Logo-Test/) is a program that the main goal is to break down the logo into single, easy to understand elements.
 Seeing the logo in many different formats helps to understand its nature and perception in multiple scenarios.
-
-[Link](https://newhorizonweb.github.io/Uverit-Logo-Test/)
 
 ## Logo Modal
 

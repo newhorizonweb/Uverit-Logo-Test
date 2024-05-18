@@ -954,16 +954,15 @@ footer .wrapper{
 }
 
 .socials svg{
-    height:70%;
+    height:80%;
     transition:0.15s;
 }
 
 .socials a:hover svg{
-    height:90%;
+    height:100%;
 }
 
 .socials svg *{
-    height:70%;
     fill:var(--txt-faded2);
     transition:0.15s;
 }
